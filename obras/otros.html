@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Otros – Eduardo Ramos</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32.png">
+  <link rel="apple-touch-icon" href="../apple-touch-icon.png">
+
+  <style>
+    :root {
+      --bg: #0e0e0e;
+      --text: #f2f2f2;
+      --muted: #b5b5b5;
+      --accent: #3fa9f5;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.8;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+
+    .container {
+      max-width: 1100px;
+      margin: auto;
+      padding: 4rem 1.5rem;
+    }
+
+    .breadcrumb {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+
+    .breadcrumb a { color: var(--muted); transition: color 0.25s ease; }
+    .breadcrumb a:hover { color: var(--accent); }
+
+    .title {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem;
+      letter-spacing: 0.12em;
+      text-align: center;
+      margin-bottom: 1.6rem;
+    }
+
+    .divider {
+      width: 60px;
+      height: 1px;
+      background: rgba(255,255,255,0.25);
+      margin: 0 auto 1.8rem;
+    }
+
+    .intro {
+      max-width: 680px;
+      margin: 0 auto 3.2rem;
+      text-align: center;
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+
+    /* MENÚ */
+    .main-menu {
+      margin-bottom: 4rem;
+      display: flex;
+      justify-content: center;
+      gap: 2.8rem;
+      flex-wrap: wrap;
+      position: relative;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 0.65rem 1.5rem;
+      border: 1px solid var(--accent);
+      border-radius: 30px;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+      color: var(--accent);
+      line-height: 1.1;
+    }
+
+    .btn:hover { background: var(--accent); color: #000; }
+    .btn.active { background: var(--accent); color: #000; cursor: default; }
+
+    /* GRID OBRAS */
+    .gallery {
+      max-width: 900px;
+      margin: auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 3rem 2rem;
+    }
+
+    .art-item {
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.85rem;
+      cursor: pointer;
+    }
+
+    .art-thumb {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.15);
+      background: #111;
+      margin-bottom: 0.6rem;
+    }
+
+    .art-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.35s ease, filter 0.35s ease;
+      display: block;
+    }
+
+    .art-item:hover img {
+      transform: scale(1.03);
+      filter: contrast(1.05);
+    }
+
+    .art-title {
+      font-family: 'Playfair Display', serif;
+      color: var(--text);
+      font-size: 0.95rem;
+    }
+
+    .art-technique { font-size: 0.75rem; }
+
+    /* PIEZA DESTACADA (tarjeta) */
+    .featured-wrap {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 3.2rem;
+    }
+
+    .featured-item {
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.85rem;
+      cursor: pointer;
+    }
+
+    .featured-thumb {
+      max-width: 320px;
+      width: 100%;
+    }
+
+    .featured-thumb img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: transform 0.35s ease, filter 0.35s ease;
+    }
+
+    .featured-item:hover .featured-thumb img {
+      transform: scale(1.02);
+      filter: contrast(1.05);
+    }
+
+    .featured-caption {
+      font-family: 'Playfair Display', serif;
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-top: 1rem;
+    }
+
+    .featured-divider {
+      width: 60px;
+      height: 1px;
+      background: rgba(255,255,255,0.25);
+      margin: 0 auto 3.2rem;
+    }
+
+    /* LIGHTBOX */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.88);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 2rem;
+    }
+
+    .lightbox.open { display: flex; }
+
+    .lightbox-content {
+      max-width: 90vw;
+      max-height: 90vh;
+      text-align: center;
+      position: relative;
+    }
+
+    .lightbox-content img {
+      max-width: 100%;
+      max-height: 70vh;
+      border-radius: 10px;
+      display: block;
+      margin: 0 auto 1rem;
+    }
+
+    .lightbox-title {
+      font-family: 'Playfair Display', serif;
+      color: var(--text);
+      font-size: 1.1rem;
+    }
+
+    .lightbox-technique {
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      font-size: 1.4rem;
+      color: var(--muted);
+      cursor: pointer;
+      transition: color 0.25s ease;
+      z-index: 1015;
+      background: transparent;
+      border: none;
+    }
+
+    .lightbox-close:hover { color: var(--accent); }
+
+    .lightbox-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 56px;
+      height: 56px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      cursor: pointer;
+      z-index: 1010;
+      transition: background 0.18s ease, color 0.18s ease, transform 0.12s ease;
+      backdrop-filter: blur(4px);
+    }
+
+    .lightbox-nav:hover {
+      background: rgba(63,169,245,0.12);
+      color: var(--text);
+      transform: translateY(-50%) scale(1.03);
+    }
+
+    .lightbox-nav.prev { left: calc(50% - 46vw - 70px); }
+    .lightbox-nav.next { right: calc(50% - 46vw - 70px); }
+
+    @media (max-width: 700px) {
+      .lightbox-nav.prev { left: 12px; }
+      .lightbox-nav.next { right: 12px; }
+      .lightbox-nav { width:48px; height:48px; font-size:1.3rem; }
+    }
+
+    .lightbox-nav.hidden { display: none; }
+
+    footer {
+      padding: 4rem 1.5rem 3rem;
+      text-align: center;
+      font-size: 0.6rem;
+      letter-spacing: 0.8em;
+      background: linear-gradient(90deg, #0b3c6f, #6fb7ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      white-space: nowrap;
+      margin-top: 6rem;
+    }
+
+    /* Submenú */
+    .obras-wrapper.open > .btn { background: var(--accent); color: #000; }
+
+    .obras-submenu {
+      position: absolute;
+      top: 120%;
+      left: 50%;
+      transform: translateX(-50%) translateY(6px);
+      background: #121212;
+      padding: 1.4rem 1.6rem;
+      border-radius: 16px;
+      display: grid;
+      grid-template-columns: repeat(3, auto);
+      gap: 0.8rem 1.8rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease, transform 0.25s ease;
+      z-index: 20;
+      white-space: nowrap;
+    }
+
+    .obras-wrapper.open .obras-submenu {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .obras-submenu a {
+      font-size: 0.75rem;
+      color: var(--muted);
+      padding: 0.45rem 1.1rem;
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 999px;
+      text-align: center;
+      transition: all 0.25s ease;
+    }
+
+    .obras-submenu a:hover {
+      background: var(--accent);
+      color: #000;
+      border-color: var(--accent);
+    }
+
+    /* =================================================================
+       NUEVO DISENO MOVIL (hasta 600px) Y TABLET (601-1024px)
+       La version de ordenador (desde 1025px) queda exactamente igual.
+       ================================================================= */
+    .m-topbar,.m-featured,.m-count,.m-hero,.m-label,.m-contact,.lb-swipe{display:none;}
+    .tabbar-m{display:none;}
+    .obras-sheet{display:none;}
+
+    @media (max-width: 1024px){
+      body{padding-bottom:calc(72px + env(safe-area-inset-bottom));}
+      footer{display:none;}
+      .main-menu{display:none !important;}
+      .breadcrumb{display:none;}
+
+      /* Barra inferior fija */
+      .tabbar-m{display:flex;position:fixed;bottom:0;left:0;right:0;height:calc(64px + env(safe-area-inset-bottom));padding-bottom:env(safe-area-inset-bottom);background:rgba(18,18,18,0.96);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-top:1px solid rgba(255,255,255,0.08);z-index:900;align-items:center;justify-content:space-around;}
+      .tabbar-m a{display:flex;flex-direction:column;align-items:center;gap:5px;font-family:'Inter',sans-serif;font-size:11px;font-weight:500;color:var(--muted);text-decoration:none;}
+      .tabbar-m a .dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,0.25);}
+      .tabbar-m a.active{color:var(--accent);font-weight:600;}
+      .tabbar-m a.active .dot{background:var(--accent);}
+
+      /* Panel deslizante de Obras */
+      .obras-sheet{display:block;position:fixed;left:0;right:0;top:0;bottom:calc(64px + env(safe-area-inset-bottom));overflow:hidden;z-index:950;pointer-events:none;overscroll-behavior:contain;}
+      .obras-sheet.open{pointer-events:auto;}
+      .obras-sheet .sheet-overlay{position:absolute;inset:0;background:rgba(0,0,0,0.5);opacity:0;transition:opacity 0.25s ease;}
+      .obras-sheet.open .sheet-overlay{opacity:1;}
+      .obras-sheet .sheet-panel{position:absolute;left:0;right:0;bottom:0;background:#141414;border-radius:22px 22px 0 0;border-top:1px solid rgba(255,255,255,0.1);padding:12px 22px 10px;transform:translateY(105%);transition:transform 0.3s ease;touch-action:none;}
+      .obras-sheet.open .sheet-panel{transform:translateY(0);}
+      .sheet-handle{width:36px;height:4px;border-radius:3px;background:rgba(255,255,255,0.25);margin:0 auto 12px;}
+      .sheet-title{font-family:'Playfair Display',serif;font-size:17px;font-weight:600;color:var(--text);margin-bottom:8px;}
+      .sheet-row{display:flex;align-items:center;gap:14px;padding:9px 0;border-bottom:1px solid rgba(255,255,255,0.07);color:var(--text);font-family:'Inter',sans-serif;font-size:14px;font-weight:500;text-decoration:none;}
+      .sheet-row:last-child{border-bottom:none;}
+      .sheet-row img{width:38px;height:38px;border-radius:8px;object-fit:cover;flex:none;}
+      .sheet-row .chev{margin-left:auto;color:#666;font-family:serif;}
+      .sheet-row.current{color:var(--accent);}
+    }
+
+    @media (max-width: 600px){
+      footer{font-size:0.42rem;letter-spacing:0.16em;padding:3rem 0.8rem 2.5rem;white-space:nowrap;}
+      footer div{font-size:0.42rem !important;letter-spacing:0.16em !important;}
+    }
+
+    @media (max-width: 1024px){
+      .m-count{display:block;text-align:center;font-family:'Inter',sans-serif;font-weight:300;font-size:0.75rem;color:#888;margin:-0.9rem 0 1.8rem;}
+      .title{font-size:1.9rem;letter-spacing:0.06em;}
+      .intro{font-size:0.92rem;margin-bottom:2rem;}
+      .gallery{gap:1.5rem 1rem;}
+      .art-item{min-width:0;}
+      .art-title{font-size:0.85rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+      .art-technique{font-size:0.68rem;}
+
+      /* Visor de obra inmersivo */
+      .lightbox{padding:0;background:rgba(0,0,0,0.96);overscroll-behavior:contain;touch-action:none;}
+      .lightbox-nav{display:none !important;}
+      .lightbox-content{max-width:100%;max-height:100%;width:100%;height:100%;display:flex;flex-direction:column;justify-content:flex-end;padding:calc(16px + env(safe-area-inset-top)) 22px calc(26px + env(safe-area-inset-bottom));}
+      .lightbox-content img{position:static;width:100%;flex:1 1 0%;min-height:0;max-width:100%;max-height:none;object-fit:contain;margin:0 0 14px;border-radius:0;}
+      .lightbox-title{position:static;text-align:left;font-size:1.05rem;line-height:1.35;}
+      .lightbox-technique{position:static;text-align:left;font-size:0.8rem;line-height:1.5;margin-top:2px;}
+      .lb-swipe{display:block;position:static;text-align:left;font-family:'Inter',sans-serif;font-size:0.8rem;color:rgba(255,255,255,0.6);margin-top:10px;}
+      .lightbox-close{top:calc(0.9rem + env(safe-area-inset-top));right:0.9rem;width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,0.12);font-size:1rem;display:flex;align-items:center;justify-content:center;}
+    }
+    @media (max-width: 600px){
+      .container{padding:2.2rem 1.2rem 3rem;}
+      .title{font-size:1.7rem;}
+      .gallery{grid-template-columns:1fr 1fr;}
+      .lightbox-nav{display:none !important;}
+    }
+    @media (min-width:601px) and (max-width:1024px){
+      .container{padding:2.8rem 2rem 3rem;}
+      .gallery{grid-template-columns:repeat(3,1fr);max-width:860px;}
+      .intro{display:block;text-align:justify;}
+      .lightbox-nav{background:rgba(0,0,0,0.55);color:#fff;}
+      .lightbox-nav:hover,.lightbox-nav:focus,.lightbox-nav:active{background:rgba(0,0,0,0.55);color:#fff;transform:translateY(-50%);}
+      footer{font-size:0.5rem;letter-spacing:0.4em;}
+    }
+  </style>
+</head>
+<body>
+
+<main class="container">
+
+  <div class="breadcrumb">
+    <a href="../index.html">Volver al inicio</a>
+  </div>
+
+  <h1 class="title">Otros</h1>
+  <div class="divider"></div>
+  <div class="m-count" id="mCount"></div>
+
+  <p class="intro">
+    Paisajes venezolanos capturados con una mirada impresionista, en pequeños formatos originales de 15 cm x 18 cm al óleo sobre tela. Piezas de colección presentadas en formato tipo tarjeta, ideales para coleccionar o enmarcar.
+  </p>
+
+  <nav class="main-menu" style="position:relative;">
+    <div class="obras-wrapper" id="obrasWrapper" style="position:relative;">
+      <span class="btn" id="obrasBtn" style="cursor:pointer;">Obras</span>
+      <div class="obras-submenu" id="obrasSubmenu">
+        <a href="abstractos.html">Abstractos</a>
+        <a href="arboles.html">Árboles</a>
+        <a href="avilas.html">Ávilas</a>
+        <a href="casas-y-calles.html">Casas y Calles</a>
+        <a href="collage.html">Collage</a>
+        <a href="gallos.html">Gallos</a>
+        <a href="marinas.html">Marinas</a>
+        <a href="palafitos.html">Palafitos</a>
+        <a href="otros.html">Otros</a>
+      </div>
+    </div>
+
+    <a href="../sobre.html" class="btn">Sobre el artista</a>
+    <a href="../contacto.html" class="btn">Contacto</a>
+  </nav>
+
+  <div class="featured-wrap">
+    <div class="art-item featured-item" data-img="../images/otros/tarjeta.png" data-title="Así se presenta cada pieza." data-tech="Lista para coleccionar o enmarcar.">
+      <div class="featured-thumb">
+        <img src="../images/otros/tarjeta.png" alt="Presentación en formato tarjeta">
+      </div>
+      <div class="featured-caption">
+        Así se presenta cada pieza.<br>
+        Lista para coleccionar o enmarcar.
+      </div>
+    </div>
+  </div>
+
+  <div class="featured-divider"></div>
+
+  <section class="gallery">
+    <script>
+      const gallery = document.currentScript.parentElement;
+      const tech = 'Óleo s/Tela';
+
+      const titles = [
+        "Pelea de Gallos",
+        "Vía Turgua",
+        "Rincón de Los Andes",
+        "Rincón de Los Andes",
+        "Rancho de Petare",
+        "Mucuchíes - Mérida",
+        "Cambural",
+        "Rincón Andino",
+        "Rincón Andino",
+        "Rincón de Santa Teresa del Tuy",
+        "Calle de Choroní",
+        "Rincón Andino",
+        "Rincón Andino",
+        "Calle de Choroní",
+        "Calle de Choroní",
+        "Rincón Andino",
+        "Los Venados - Ávila",
+        "Río Torbes - Táchira",
+        "Río Torbes - Táchira",
+        "Flamboyan",
+        "Apamate",
+        "Apamate",
+        "Araguaney",
+        "Araguaney",
+        "Araguaney",
+        "Araguaney",
+        "Araguaney",
+        "El Ávila desde Colinas de Bello Monte",
+        "El Ávila desde La Carretera Vieja de Las Minas de Baruta",
+        "El Ávila desde Santa Inés",
+        "El Ávila desde San Román",
+        "Palafito de Sinamaica",
+        "Rincón de Margarita",
+        "Rincón de Margarita",
+        "Palafito de Sinamaica",
+        "Margarita",
+        "Litoral Central",
+        "Puerto Colombia - Choroní",
+        "Rincón de Margarita"
+      ];
+
+      const srcs = [];
+      for (let i = 1; i <= 39; i++) {
+        const num = String(i).padStart(2, '0');
+        srcs.push(`../images/otros/otros${num}.jpg`);
+      }
+
+      srcs.forEach((src, idx) => {
+        const title = titles[idx];
+
+        gallery.insertAdjacentHTML('beforeend', `
+          <div class="art-item" data-img="${src}" data-title="${title}" data-tech="${tech}">
+            <div class="art-thumb">
+              <img src="${src}" alt="${title}">
+            </div>
+            <div class="art-title">${title}</div>
+            <div class="art-technique">${tech}</div>
+          </div>
+        `);
+      });
+    </script>
+  </section>
+
+</main>
+
+<footer>
+  E&nbsp;d&nbsp;u&nbsp;a&nbsp;r&nbsp;d&nbsp;o&nbsp;&nbsp;R&nbsp;a&nbsp;m&nbsp;o&nbsp;s&nbsp;&nbsp;P&nbsp;i&nbsp;n&nbsp;t&nbsp;o&nbsp;r&nbsp;&nbsp;A&nbsp;r&nbsp;t&nbsp;í&nbsp;s&nbsp;t&nbsp;i&nbsp;c&nbsp;o
+</footer>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-label="Visor de imágenes">
+  <button class="lightbox-close" id="lightboxClose" aria-label="Cerrar lightbox">✕</button>
+
+  <button class="lightbox-nav prev hidden" id="lbPrev" aria-label="Imagen anterior">‹</button>
+  <button class="lightbox-nav next hidden" id="lbNext" aria-label="Imagen siguiente">›</button>
+
+  <div class="lightbox-content" id="lightboxContent">
+    <img src="" alt="" id="lightboxImg">
+    <div class="lightbox-title" id="lightboxTitle"></div>
+    <div class="lightbox-technique" id="lightboxTech"></div>
+    <div class="lb-swipe" id="lbSwipe"></div>
+  </div>
+</div>
+
+<script>
+  const wrapper = document.getElementById('obrasWrapper');
+  let closeTimeout;
+  const canHover = window.matchMedia('(hover: hover)');
+  if (wrapper) {
+    wrapper.addEventListener('mouseenter',()=>{ if(!canHover.matches) return; clearTimeout(closeTimeout); wrapper.classList.add('open'); });
+    wrapper.addEventListener('mouseleave',()=>{ if(!canHover.matches) return; closeTimeout=setTimeout(()=>wrapper.classList.remove('open'),120); });
+    const obrasToggle = wrapper.querySelector('.btn');
+    if (obrasToggle) obrasToggle.addEventListener('click',()=>{ if(canHover.matches) return; wrapper.classList.toggle('open'); });
+    document.addEventListener('click',(e)=>{ if(canHover.matches) return; if(!wrapper.classList.contains('open')) return; if(!wrapper.contains(e.target)) wrapper.classList.remove('open'); });
+  }
+
+  (function(){
+    const lightbox = document.getElementById('lightbox');
+    const lbImg = document.getElementById('lightboxImg');
+    const lbTitle = document.getElementById('lightboxTitle');
+    const lbTech = document.getElementById('lightboxTech');
+    const lbClose = document.getElementById('lightboxClose');
+    const lbPrev = document.getElementById('lbPrev');
+    const lbNext = document.getElementById('lbNext');
+    const items = Array.from(document.querySelectorAll('.art-item'));
+    let currentIndex = -1;
+
+    function showIndex(i) {
+      if (i < 0 || i >= items.length) return;
+      currentIndex = i;
+      const it = items[i];
+      lbImg.src = it.dataset.img || '';
+      lbImg.alt = it.dataset.title || '';
+      lbTitle.textContent = it.dataset.title || '';
+      lbTech.textContent = it.dataset.tech || '';
+      if (!lightbox.classList.contains('open')) {
+        try { history.pushState({ lightboxOpen: true }, ''); lbInHistory = true; } catch(err) { lbInHistory = false; }
+      }
+      lightbox.classList.add('open');
+      var sbw = window.innerWidth - document.documentElement.clientWidth;
+      if (sbw > 0) document.body.style.paddingRight = sbw + 'px';
+      document.body.style.overflow = 'hidden';
+      lightbox.setAttribute('aria-hidden','false');
+      updateNavVisibility();
+    }
+
+    function closeLightboxVisual() {
+      lightbox.classList.remove('open');
+      document.body.style.overflow = ''; document.body.style.paddingRight = '';
+      lightbox.setAttribute('aria-hidden','true');
+      currentIndex = -1;
+    }
+
+    let lbInHistory = false;
+    let lbIgnorePop = false;
+
+    function closeLightbox() {
+      closeLightboxVisual();
+      if (lbInHistory) { lbInHistory = false; lbIgnorePop = true; try { history.back(); } catch(err) {} }
+    }
+
+    window.addEventListener('popstate', function() {
+      if (lbIgnorePop) { lbIgnorePop = false; return; }
+      if (lightbox.classList.contains('open')) { lbInHistory = false; closeLightboxVisual(); }
+    });
+
+    function updateNavVisibility(){
+      if (currentIndex <= 0) {
+        lbPrev.classList.add('hidden');
+      } else {
+        lbPrev.classList.remove('hidden');
+      }
+      if (currentIndex >= items.length - 1) {
+        lbNext.classList.add('hidden');
+      } else {
+        lbNext.classList.remove('hidden');
+      }
+    }
+
+    document.addEventListener('click', (e) => {
+      const item = e.target.closest('.art-item');
+      if (!item) return;
+      const idx = items.indexOf(item);
+      if (idx === -1) return;
+      showIndex(idx);
+    });
+
+    lbClose.addEventListener('click', closeLightbox);
+
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) { closeLightbox(); return; }
+      if (e.target.classList && e.target.classList.contains('lightbox-content')) { closeLightbox(); return; }
+      if (e.target === lbImg && lbImg.naturalWidth > 0) {
+        const r = lbImg.getBoundingClientRect();
+        const scale = Math.min(r.width / lbImg.naturalWidth, r.height / lbImg.naturalHeight);
+        const w = lbImg.naturalWidth * scale;
+        const h = lbImg.naturalHeight * scale;
+        const x0 = r.left + (r.width - w) / 2;
+        const y0 = r.top + (r.height - h) / 2;
+        if (e.clientX < x0 || e.clientX > x0 + w || e.clientY < y0 || e.clientY > y0 + h) closeLightbox();
+      }
+    });
+
+    lbPrev.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (currentIndex > 0) showIndex(currentIndex - 1);
+    });
+    lbNext.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (currentIndex < items.length - 1) showIndex(currentIndex + 1);
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (!lightbox.classList.contains('open')) return;
+      if (e.key === 'Escape') closeLightbox();
+      else if (e.key === 'ArrowLeft') { if (currentIndex > 0) showIndex(currentIndex - 1); }
+      else if (e.key === 'ArrowRight') { if (currentIndex < items.length - 1) showIndex(currentIndex + 1); }
+    });
+
+    let touchStartX = 0;
+    let touchStartY = 0;
+    const SWIPE_MIN_DISTANCE = 40;
+
+    lightbox.addEventListener('touchstart', (e) => {
+      if (e.touches && e.touches.length === 1) {
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+      }
+    }, {passive:true});
+
+    lightbox.addEventListener('touchend', (e) => {
+      if (!lightbox.classList.contains('open')) return;
+      const touch = e.changedTouches && e.changedTouches[0];
+      if (!touch) return;
+      const dx = touch.clientX - touchStartX;
+      const dy = touch.clientY - touchStartY;
+      if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > SWIPE_MIN_DISTANCE) {
+        if (dx > 0) { if (currentIndex > 0) showIndex(currentIndex - 1); }
+        else { if (currentIndex < items.length - 1) showIndex(currentIndex + 1); }
+      }
+    }, {passive:true});
+
+    window.addEventListener('resize', updateNavVisibility);
+  })();
+</script>
+
+
+<!-- Barra de navegacion inferior (solo movil/tablet) -->
+<nav class="tabbar-m" aria-label="Navegacion">
+  <a href="../index.html"><span class="dot"></span>Inicio</a>
+  <a href="#" id="tabObrasM" class="active"><span class="dot"></span>Obras</a>
+  <a href="../sobre.html"><span class="dot"></span>Sobre</a>
+  <a href="../contacto.html"><span class="dot"></span>Contacto</a>
+</nav>
+
+<!-- Panel deslizante de Obras (solo movil/tablet) -->
+<div class="obras-sheet" id="obrasSheetM">
+  <div class="sheet-overlay"></div>
+  <div class="sheet-panel">
+    <div class="sheet-handle"></div>
+    <div class="sheet-title">Obras</div>
+    <a class="sheet-row" href="abstractos.html"><img src="../images/abstractos/abstracto01.jpg" alt=""><span>Abstractos</span><span class="chev">›</span></a>
+    <a class="sheet-row" href="arboles.html"><img src="../images/arboles/arbol01.jpg" alt=""><span>Árboles</span><span class="chev">›</span></a>
+    <a class="sheet-row" href="avilas.html"><img src="../images/avilas/avila02.jpg" alt=""><span>Ávilas</span><span class="chev">›</span></a>
+    <a class="sheet-row" href="casas-y-calles.html"><img src="../images/casas-y-calles/casa-calle05.jpg" alt=""><span>Casas y Calles</span><span class="chev">›</span></a>
+    <a class="sheet-row" href="collage.html"><img src="../images/collage/collage01.jpg" alt=""><span>Collage</span><span class="chev">›</span></a>
+    <a class="sheet-row" href="gallos.html"><img src="../images/gallos/gallo01.jpg" alt=""><span>Gallos</span><span class="chev">›</span></a>
+    <a class="sheet-row" href="marinas.html"><img src="../images/marinas/marina02.jpg" alt=""><span>Marinas</span><span class="chev">›</span></a>
+    <a class="sheet-row" href="palafitos.html"><img src="../images/palafitos/palafito03.jpg" alt=""><span>Palafitos</span><span class="chev">›</span></a>
+    <a class="sheet-row" href="otros.html"><img src="../images/otros/otros01.jpg" alt=""><span>Otros</span><span class="chev">›</span></a>
+  </div>
+</div>
+
+<script>
+  /* Barra inferior + panel de Obras (solo movil/tablet; en ordenador estan ocultos) */
+  (function(){
+    var sheet = document.getElementById('obrasSheetM');
+    var btn = document.getElementById('tabObrasM');
+    if (!sheet || !btn) return;
+    var enObras = location.pathname.indexOf('obras') > -1;
+    var tabsM = document.querySelectorAll('.tabbar-m a');
+    var tabPaginaActual = document.querySelector('.tabbar-m a.active');
+    function syncTab(){
+      var abierto = sheet.classList.contains('open');
+      document.body.style.overflow = abierto ? 'hidden' : '';
+      for (var k = 0; k < tabsM.length; k++) tabsM[k].classList.remove('active');
+      if (abierto) { btn.classList.add('active'); }
+      else if (tabPaginaActual) { tabPaginaActual.classList.add('active'); }
+    }
+    btn.addEventListener('click', function(e){ e.preventDefault(); sheet.classList.toggle('open'); syncTab(); });
+    sheet.querySelector('.sheet-overlay').addEventListener('click', function(){ sheet.classList.remove('open'); syncTab(); });
+    var panelM = sheet.querySelector('.sheet-panel');
+    var startYM = null;
+    var dragYM = 0;
+    panelM.addEventListener('touchstart', function(e){ startYM = e.touches[0].clientY; dragYM = 0; }, {passive:true});
+    panelM.addEventListener('touchmove', function(e){
+      if (startYM === null) return;
+      dragYM = e.touches[0].clientY - startYM;
+      if (dragYM < 0) dragYM = 0;
+      panelM.style.transition = 'none';
+      panelM.style.transform = 'translateY(' + dragYM + 'px)';
+    }, {passive:true});
+    panelM.addEventListener('touchend', function(){
+      if (startYM === null) return;
+      startYM = null;
+      panelM.style.transition = '';
+      panelM.style.transform = '';
+      if (dragYM > 70) { sheet.classList.remove('open'); syncTab(); }
+      dragYM = 0;
+    }, {passive:true});
+    var f = location.pathname.split('/').pop();
+    if (location.pathname.indexOf('obras') > -1) {
+      var rows = document.querySelectorAll('.sheet-row');
+      for (var i = 0; i < rows.length; i++) {
+        var h = rows[i].getAttribute('href').split('/').pop();
+        if (h === f) rows[i].classList.add('current');
+      }
+    }
+  })();
+</script>
+
+<script>
+  /* Contador de obras + linea "Desliza para ver mas" del visor (solo movil/tablet) */
+  (function(){
+    var items = document.querySelectorAll('.gallery .art-item');
+    var c = document.getElementById('mCount');
+    if (c) c.textContent = items.length + ' obras';
+    var img = document.getElementById('lightboxImg');
+    var line = document.getElementById('lbSwipe');
+    if (!img || !line) return;
+    function upd(){
+      var list = Array.prototype.slice.call(document.querySelectorAll('.art-item'));
+      var s = img.getAttribute('src');
+      var i = -1;
+      for (var k = 0; k < list.length; k++) { if (list[k].dataset.img === s) { i = k; break; } }
+      if (i > -1) line.textContent = 'Desliza para ver más · ' + (i + 1) + ' / ' + list.length;
+    }
+    new MutationObserver(upd).observe(img, { attributes: true, attributeFilter: ['src'] });
+  })();
+</script>
+
+</body>
+</html>

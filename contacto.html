@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contacto – Eduardo Ramos</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+  <style>
+    :root {
+      --bg: #0e0e0e;
+      --text: #f2f2f2;
+      --muted: #b5b5b5;
+      --accent: #3fa9f5;
+      --wa: #25D366; /* whatsapp green */
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.8;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+
+    /* keep email/link in contact list from showing underline or changing on hover */
+    .contact-list a { text-decoration: none; color: var(--accent); }
+    .contact-list a:hover, .contact-list a:focus { text-decoration: none; color: var(--accent); outline: none; }
+
+    .container {
+      max-width: 1100px;
+      margin: auto;
+      padding: 4rem 1.5rem;
+    }
+
+    .breadcrumb {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+
+    .breadcrumb a { color: var(--muted); transition: color 0.25s ease; }
+    .breadcrumb a:hover { color: var(--accent); }
+
+    .title {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem;
+      letter-spacing: 0.12em;
+      text-align: center;
+      margin-bottom: 1.6rem;
+    }
+
+    .divider {
+      width: 60px;
+      height: 1px;
+      background: rgba(255,255,255,0.25);
+      margin: 0 auto 1.8rem;
+    }
+
+    .intro {
+      max-width: 680px;
+      margin: 0 auto 3.2rem;
+      text-align: center;
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+
+    /* MENÚ */
+    .main-menu {
+      margin-bottom: 4rem;
+      display: flex;
+      justify-content: center;
+      gap: 2.8rem;
+      flex-wrap: wrap;
+      position: relative;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 0.65rem 1.5rem;
+      border: 1px solid var(--accent);
+      border-radius: 30px;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+      color: var(--accent);
+      line-height: 1.1;
+    }
+
+    .btn:hover { background: var(--accent); color: #000; }
+    .btn.active { background: var(--accent); color: #000; cursor: default; }
+
+    /* CONTENIDO CONTACTO */
+    .contact-grid {
+      max-width: 900px;
+      margin: auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .contact-block h3 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 400;
+      color: var(--text);
+      margin-bottom: 1.2rem;
+    }
+
+    .contact-block p { margin-bottom: 1.2rem; }
+
+    .contact-list li { margin-bottom: 0.6rem; list-style: none; }
+
+    .contact-image {
+      width: 100%;
+      height: 260px;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.15);
+      background: #111;
+    }
+
+    .contact-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      transition: transform 0.38s ease, filter 0.38s ease;
+      display: block;
+    }
+
+    .contact-image:hover img {
+      transform: scale(1.04);
+      filter: contrast(1.04);
+    }
+
+    @media (max-width: 800px) {
+      .contact-grid { grid-template-columns: 1fr; }
+    }
+
+    /* BOTÓN WHATSAPP (fondo verde, ícono blanco centrado, se expande con texto) */
+    .wa-btn {
+      display: inline-flex;
+      align-items: center;
+      height: 48px;
+      padding: 0 12px;
+      background: var(--wa);
+      border-radius: 999px;
+      text-decoration: none;
+      overflow: hidden;
+      max-width: 48px;
+      transition: max-width 0.32s ease;
+    }
+
+    .wa-btn .whatsapp-svg {
+      width: 24px;
+      height: 24px;
+      flex-shrink: 0;
+      overflow: visible;
+    }
+
+    /* burbuja: solo contorno blanco (se ve el verde del botón por dentro), teléfono blanco sólido */
+    .wa-btn .whatsapp-svg path.outline {
+      fill: none;
+      stroke: #fff;
+      stroke-width: 1.6;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      vector-effect: non-scaling-stroke;
+    }
+
+    .wa-btn .whatsapp-svg path.inner {
+      fill: #fff;
+      stroke: none;
+    }
+
+    .wa-btn-text {
+      max-width: 0;
+      overflow: hidden;
+      white-space: nowrap;
+      opacity: 0;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: #fff;
+      margin-left: 0;
+      transition: max-width 0.32s ease, opacity 0.28s ease, margin-left 0.32s ease;
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      .wa-btn:hover {
+        max-width: 280px;
+      }
+      .wa-btn:hover .wa-btn-text {
+        max-width: 220px;
+        opacity: 1;
+        margin-left: 0.6rem;
+      }
+    }
+
+    @media (hover: none), (pointer: coarse) {
+      .wa-btn {
+        max-width: 280px;
+      }
+      .wa-btn-text {
+        max-width: 220px;
+        opacity: 1;
+        margin-left: 0.6rem;
+      }
+    }
+
+    footer {
+      padding: 4rem 1.5rem 3rem;
+      text-align: center;
+      font-size: 0.6rem;
+      letter-spacing: 0.8em;
+      background: linear-gradient(90deg, #0b3c6f, #6fb7ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      white-space: nowrap;
+      margin-top: 6rem;
+    }
+
+    /* ------- Submenú ------- */
+    .obras-wrapper.open > .btn {
+      background: var(--accent);
+      color: #000;
+    }
+
+    .obras-submenu {
+      position: absolute;
+      top: 120%;
+      left: 50%;
+      transform: translateX(-50%) translateY(6px);
+      background: #121212;
+      padding: 1.4rem 1.6rem;
+      border-radius: 16px;
+      display: grid;
+      grid-template-columns: repeat(3, auto);
+      gap: 0.8rem 1.8rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease, transform 0.25s ease;
+      z-index: 20;
+      white-space: nowrap;
+    }
+
+    .obras-wrapper.open .obras-submenu {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .obras-submenu a {
+      font-size: 0.75rem;
+      color: var(--muted);
+      padding: 0.45rem 1.1rem;
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 999px;
+      text-align: center;
+      transition: all 0.25s ease;
+    }
+
+    .obras-submenu a:hover {
+      background: var(--accent);
+      color: #000;
+      border-color: var(--accent);
+    }
+
+    /* =================================================================
+       NUEVO DISENO MOVIL (hasta 600px) Y TABLET (601-1024px)
+       La version de ordenador (desde 1025px) queda exactamente igual.
+       ================================================================= */
+    .m-topbar,.m-featured,.m-count,.m-hero,.m-label,.m-contact,.lb-swipe{display:none;}
+    .tabbar-m{display:none;}
+    .obras-sheet{display:none;}
+
+    @media (max-width: 1024px){
+      body{padding-bottom:calc(72px + env(safe-area-inset-bottom));}
+      footer{display:none;}
+      .main-menu{display:none !important;}
+      .breadcrumb{display:none;}
+
+      /* Barra inferior fija */
+      .tabbar-m{display:flex;position:fixed;bottom:0;left:0;right:0;height:calc(64px + env(safe-area-inset-bottom));padding-bottom:env(safe-area-inset-bottom);background:rgba(18,18,18,0.96);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-top:1px solid rgba(255,255,255,0.08);z-index:900;align-items:center;justify-content:space-around;}
+      .tabbar-m a{display:flex;flex-direction:column;align-items:center;gap:5px;font-family:'Inter',sans-serif;font-size:11px;font-weight:500;color:var(--muted);text-decoration:none;}
+      .tabbar-m a .dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,0.25);}
+      .tabbar-m a.active{color:var(--accent);font-weight:600;}
+      .tabbar-m a.active .dot{background:var(--accent);}
+
+      /* Panel deslizante de Obras */
+      .obras-sheet{display:block;position:fixed;left:0;right:0;top:0;bottom:calc(64px + env(safe-area-inset-bottom));overflow:hidden;z-index:950;pointer-events:none;overscroll-behavior:contain;}
+      .obras-sheet.open{pointer-events:auto;}
+      .obras-sheet .sheet-overlay{position:absolute;inset:0;background:rgba(0,0,0,0.5);opacity:0;transition:opacity 0.25s ease;}
+      .obras-sheet.open .sheet-overlay{opacity:1;}
+      .obras-sheet .sheet-panel{position:absolute;left:0;right:0;bottom:0;background:#141414;border-radius:22px 22px 0 0;border-top:1px solid rgba(255,255,255,0.1);padding:12px 22px 10px;transform:translateY(105%);transition:transform 0.3s ease;touch-action:none;}
+      .obras-sheet.open .sheet-panel{transform:translateY(0);}
+      .sheet-handle{width:36px;height:4px;border-radius:3px;background:rgba(255,255,255,0.25);margin:0 auto 12px;}
+      .sheet-title{font-family:'Playfair Display',serif;font-size:17px;font-weight:600;color:var(--text);margin-bottom:8px;}
+      .sheet-row{display:flex;align-items:center;gap:14px;padding:9px 0;border-bottom:1px solid rgba(255,255,255,0.07);color:var(--text);font-family:'Inter',sans-serif;font-size:14px;font-weight:500;text-decoration:none;}
+      .sheet-row:last-child{border-bottom:none;}
+      .sheet-row img{width:38px;height:38px;border-radius:8px;object-fit:cover;flex:none;}
+      .sheet-row .chev{margin-left:auto;color:#666;font-family:serif;}
+      .sheet-row.current{color:var(--accent);}
+    }
+
+    @media (max-width: 600px){
+      footer{font-size:0.42rem;letter-spacing:0.16em;padding:3rem 0.8rem 2.5rem;white-space:nowrap;}
+      footer div{font-size:0.42rem !important;letter-spacing:0.16em !important;}
+    }
+
+    @media (max-width: 1024px){
+      main.container{display:none;}
+      .m-contact{display:flex;position:relative;min-height:calc(100vh - 72px);min-height:calc(100dvh - 72px - env(safe-area-inset-bottom));flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:2rem;overflow:hidden;}
+      .m-contact .bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.6;}
+      .m-contact .shade{position:absolute;inset:0;background:linear-gradient(180deg, rgba(14,14,14,0.55) 0%, rgba(14,14,14,0.35) 45%, rgba(14,14,14,0.92) 100%);}
+      .m-contact .inner{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;}
+      .m-contact h2{font-family:'Playfair Display',serif;font-weight:600;font-size:1.6rem;line-height:1.3;color:#fff;margin:0 0 0.9rem;max-width:320px;text-shadow:0 0 1px rgba(0,0,0,0.95), 0 0 3px rgba(0,0,0,0.85), 0 2px 5px rgba(0,0,0,0.7);}
+      .m-contact .mail{font-family:'Inter',sans-serif;font-weight:400;font-size:0.92rem;color:rgba(255,255,255,0.95);text-decoration:none;margin-bottom:0.35rem;text-shadow:0 0 1px rgba(0,0,0,0.95), 0 0 3px rgba(0,0,0,0.85), 0 1px 4px rgba(0,0,0,0.7);}
+      .m-contact .loc{font-family:'Inter',sans-serif;font-weight:300;font-size:0.9rem;color:rgba(255,255,255,0.85);text-shadow:0 0 1px rgba(0,0,0,0.95), 0 0 3px rgba(0,0,0,0.85), 0 1px 4px rgba(0,0,0,0.7);}
+      .m-contact .wa{margin-top:2.2rem;width:58px;height:58px;border-radius:50%;background:var(--wa);display:flex;align-items:center;justify-content:center;box-shadow:0 10px 24px rgba(0,0,0,0.4);}
+      .m-contact .wa svg{width:28px;height:28px;overflow:visible;}
+      .m-contact .rep{margin-top:2.4rem;max-width:340px;font-family:'Inter',sans-serif;font-weight:300;font-size:0.74rem;line-height:1.7;color:rgba(255,255,255,0.8);text-shadow:0 0 1px rgba(0,0,0,0.95), 0 0 3px rgba(0,0,0,0.85), 0 1px 4px rgba(0,0,0,0.7);}
+      footer{margin-top:0;}
+    }
+    @media (min-width:601px) and (max-width:1024px){
+      .m-contact h2{font-size:2.1rem;max-width:460px;}
+      .m-contact .mail,.m-contact .loc{font-size:1rem;}
+      .m-contact .rep{max-width:460px;font-size:0.8rem;text-align:justify;}
+      footer{font-size:0.5rem;letter-spacing:0.4em;}
+    }
+  </style>
+</head>
+<body>
+<!-- Contacto (solo movil/tablet) -->
+<section class="m-contact">
+  <img class="bg" src="images/contacto/contacto.jpg" alt="">
+  <div class="shade"></div>
+  <div class="inner">
+    <h2>Hablemos de tu próximo cuadro</h2>
+    <a class="mail" href="mailto:eduardoramosarte@gmail.com">eduardoramosarte@gmail.com</a>
+    <div class="loc">Barcelona / España</div>
+    <a class="wa" href="https://wa.me/584241777793" target="_blank" rel="noopener" aria-label="Escríbeme por WhatsApp"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path d="M20.52 3.48A11.95 11.95 0 0 0 12 0C5.373 0 .06 5.313.06 11.94c0 2.106.56 4.166 1.62 5.99L0 24l6.27-1.65A11.928 11.928 0 0 0 12 24c6.627 0 11.94-5.373 11.94-12 0-1.98-.5-3.84-1.42-5.52z" style="fill:none;stroke:#fff;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;"></path><path d="M17.5 14.2c-.32-.16-1.68-.82-1.94-.92-.26-.1-.46-.16-.66.14-.2.3-.76.94-.94 1.14-.18.2-.34.22-.66.06-.32-.16-1.36-.5-2.6-1.6-.96-.86-1.6-1.92-1.78-2.24-.18-.32-.02-.5.12-.64.14-.14.32-.36.48-.54.16-.18.2-.32.32-.54.12-.22.06-.42-.02-.6-.08-.18-.72-1.72-1-2.36-.26-.6-.52-.52-.72-.54h-.62c-.22 0-.58.08-.88.38-.3.3-1.14 1.1-1.14 2.7 0 1.6 1.18 3.14 1.34 3.36.16.22 2.32 3.6 5.6 5.04 2.48 1.14 3.52.98 4.14.9.66-.08 2.04-.82 2.32-1.6.28-.78.28-1.46.2-1.6-.08-.14-.3-.22-.64-.38z" style="fill:#fff;"></path></svg></a>
+    <p class="rep">Para exposiciones, ferias de arte, adquisiciones institucionales o consultas curatoriales, puede comunicarse a través de los canales indicados.</p>
+  </div>
+</section>
+
+<main class="container">
+
+  <div class="breadcrumb">
+    <a href="index.html">Volver al inicio</a>
+  </div>
+
+  <h1 class="title">Contacto</h1>
+  <div class="divider"></div>
+
+  <p class="intro">
+    Información de contacto, representación y consultas relacionadas con la obra de Eduardo Ramos.
+  </p>
+
+  <nav class="main-menu">
+    <div class="obras-wrapper" id="obrasWrapper" style="position:relative;">
+      <span class="btn" style="cursor:pointer;">Obras</span>
+      <div class="obras-submenu">
+        <a href="obras/abstractos.html">Abstractos</a>
+        <a href="obras/arboles.html">Árboles</a>
+        <a href="obras/avilas.html">Ávilas</a>
+        <a href="obras/casas-y-calles.html">Casas y Calles</a>
+        <a href="obras/collage.html">Collage</a>
+        <a href="obras/gallos.html">Gallos</a>
+        <a href="obras/marinas.html">Marinas</a>
+        <a href="obras/palafitos.html">Palafitos</a>
+        <a href="obras/otros.html">Otros</a>
+      </div>
+    </div>
+
+    <a href="sobre.html" class="btn">Sobre el artista</a>
+    <span class="btn active">Contacto</span>
+  </nav>
+
+  <section class="contact-grid">
+
+    <div class="contact-block">
+      <h3>Contacto directo</h3>
+      <ul class="contact-list">
+        <li>
+          <a href="https://wa.me/584241777793" target="_blank" rel="noopener" class="wa-btn" aria-label="Escríbeme por WhatsApp">
+            <svg class="whatsapp-svg" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+              <path class="outline" d="M20.52 3.48A11.95 11.95 0 0 0 12 0C5.373 0 .06 5.313.06 11.94c0 2.106.56 4.166 1.62 5.99L0 24l6.27-1.65A11.928 11.928 0 0 0 12 24c6.627 0 11.94-5.373 11.94-12 0-1.98-.5-3.84-1.42-5.52z" />
+              <path class="inner" d="M17.5 14.2c-.32-.16-1.68-.82-1.94-.92-.26-.1-.46-.16-.66.14-.2.3-.76.94-.94 1.14-.18.2-.34.22-.66.06-.32-.16-1.36-.5-2.6-1.6-.96-.86-1.6-1.92-1.78-2.24-.18-.32-.02-.5.12-.64.14-.14.32-.36.48-.54.16-.18.2-.32.32-.54.12-.22.06-.42-.02-.6-.08-.18-.72-1.72-1-2.36-.26-.6-.52-.52-.72-.54h-.62c-.22 0-.58.08-.88.38-.3.3-1.14 1.1-1.14 2.7 0 1.6 1.18 3.14 1.34 3.36.16.22 2.32 3.6 5.6 5.04 2.48 1.14 3.52.98 4.14.9.66-.08 2.04-.82 2.32-1.6.28-.78.28-1.46.2-1.6-.08-.14-.3-.22-.64-.38z" />
+            </svg>
+            <span class="wa-btn-text">Escríbeme por WhatsApp</span>
+          </a>
+        </li>
+
+        <li><a href="mailto:eduardoramosarte@gmail.com">eduardoramosarte@gmail.com</a></li>
+        <li>Barcelona / España</li>
+      </ul>
+
+      <h3>Representación</h3>
+      <p>
+        Para exposiciones, ferias de arte, adquisiciones institucionales o consultas curatoriales,
+        puede comunicarse a través de los canales indicados.
+      </p>
+    </div>
+
+    <div class="contact-block">
+      <div class="contact-image">
+        <img src="images/contacto/contacto.jpg" alt="Contacto Eduardo Ramos">
+      </div>
+    </div>
+
+  </section>
+
+</main>
+
+<footer>
+  E&nbsp;d&nbsp;u&nbsp;a&nbsp;r&nbsp;d&nbsp;o&nbsp;&nbsp;R&nbsp;a&nbsp;m&nbsp;o&nbsp;s&nbsp;&nbsp;P&nbsp;i&nbsp;n&nbsp;t&nbsp;o&nbsp;r&nbsp;&nbsp;A&nbsp;r&nbsp;t&nbsp;í&nbsp;s&nbsp;t&nbsp;i&nbsp;c&nbsp;o
+</footer>
+
+<script>
+  (function(){
+    const wrapper = document.getElementById('obrasWrapper');
+    if (!wrapper) return;
+    let closeTimeout;
+    const canHover = window.matchMedia('(hover: hover)');
+
+    wrapper.addEventListener('mouseenter', () => {
+      if (!canHover.matches) return;
+      clearTimeout(closeTimeout);
+      wrapper.classList.add('open');
+    });
+
+    wrapper.addEventListener('mouseleave', () => {
+      if (!canHover.matches) return;
+      closeTimeout = setTimeout(() => {
+        wrapper.classList.remove('open');
+      }, 120);
+    });
+
+    const obrasToggle = wrapper.querySelector('.btn');
+    if (obrasToggle) obrasToggle.addEventListener('click', () => {
+      if (canHover.matches) return;
+      wrapper.classList.toggle('open');
+    });
+
+    document.addEventListener('click', (e) => {
+      if (canHover.matches) return;
+      if (!wrapper.classList.contains('open')) return;
+      if (!wrapper.contains(e.target)) wrapper.classList.remove('open');
+    });
+  })();
+</script>
+
+
+<!-- Barra de navegacion inferior (solo movil/tablet) -->
+<nav class="tabbar-m" aria-label="Navegacion">
+  <a href="index.html"><span class="dot"></span>Inicio</a>
+  <a href="#" id="tabObrasM"><span class="dot"></span>Obras</a>
+  <a href="sobre.html"><span class="dot"></span>Sobre</a>
+  <a href="contacto.html" class="active"><span class="dot"></span>Contacto</a>
+</nav>
+
+<!-- Panel deslizante de Obras (solo movil/tablet) -->
+<div class="obras-sheet" id="obrasSheetM">
+  <div class="sheet-overlay"></div>
+  <div class="sheet-panel">
+    <div class="sheet-handle"></div>
+    <div class="sheet-title">Obras</div>
+    <a class="sheet-row" href="obras/abstractos.html"><img src="images/abstractos/abstracto01.jpg" alt=""><span>Abstractos</span><span class="chev">›</span></a>
+    <a class="sheet-row" href="obras/arboles.html"><img src="images/arboles/arbol01.jpg" alt=""><span>Árboles</span><span class="chev">›</span></a>
+    <a class="sheet-row" href="obras/avilas.html"><img src="images/avilas/avila02.jpg" alt=""><span>Ávilas</span><span class="chev">›</span></a>
+    <a class="sheet-row" href="obras/casas-y-calles.html"><img src="images/casas-y-calles/casa-calle05.jpg" alt=""><span>Casas y Calles</span><span class="chev">›</span></a>
+    <a class="sheet-row" href="obras/collage.html"><img src="images/collage/collage01.jpg" alt=""><span>Collage</span><span class="chev">›</span></a>
+    <a class="sheet-row" href="obras/gallos.html"><img src="images/gallos/gallo01.jpg" alt=""><span>Gallos</span><span class="chev">›</span></a>
+    <a class="sheet-row" href="obras/marinas.html"><img src="images/marinas/marina02.jpg" alt=""><span>Marinas</span><span class="chev">›</span></a>
+    <a class="sheet-row" href="obras/palafitos.html"><img src="images/palafitos/palafito03.jpg" alt=""><span>Palafitos</span><span class="chev">›</span></a>
+    <a class="sheet-row" href="obras/otros.html"><img src="images/otros/otros01.jpg" alt=""><span>Otros</span><span class="chev">›</span></a>
+  </div>
+</div>
+
+<script>
+  /* Barra inferior + panel de Obras (solo movil/tablet; en ordenador estan ocultos) */
+  (function(){
+    var sheet = document.getElementById('obrasSheetM');
+    var btn = document.getElementById('tabObrasM');
+    if (!sheet || !btn) return;
+    var enObras = location.pathname.indexOf('obras') > -1;
+    var tabsM = document.querySelectorAll('.tabbar-m a');
+    var tabPaginaActual = document.querySelector('.tabbar-m a.active');
+    function syncTab(){
+      var abierto = sheet.classList.contains('open');
+      document.body.style.overflow = abierto ? 'hidden' : '';
+      for (var k = 0; k < tabsM.length; k++) tabsM[k].classList.remove('active');
+      if (abierto) { btn.classList.add('active'); }
+      else if (tabPaginaActual) { tabPaginaActual.classList.add('active'); }
+    }
+    btn.addEventListener('click', function(e){ e.preventDefault(); sheet.classList.toggle('open'); syncTab(); });
+    sheet.querySelector('.sheet-overlay').addEventListener('click', function(){ sheet.classList.remove('open'); syncTab(); });
+    var panelM = sheet.querySelector('.sheet-panel');
+    var startYM = null;
+    var dragYM = 0;
+    panelM.addEventListener('touchstart', function(e){ startYM = e.touches[0].clientY; dragYM = 0; }, {passive:true});
+    panelM.addEventListener('touchmove', function(e){
+      if (startYM === null) return;
+      dragYM = e.touches[0].clientY - startYM;
+      if (dragYM < 0) dragYM = 0;
+      panelM.style.transition = 'none';
+      panelM.style.transform = 'translateY(' + dragYM + 'px)';
+    }, {passive:true});
+    panelM.addEventListener('touchend', function(){
+      if (startYM === null) return;
+      startYM = null;
+      panelM.style.transition = '';
+      panelM.style.transform = '';
+      if (dragYM > 70) { sheet.classList.remove('open'); syncTab(); }
+      dragYM = 0;
+    }, {passive:true});
+    var f = location.pathname.split('/').pop();
+    if (location.pathname.indexOf('obras') > -1) {
+      var rows = document.querySelectorAll('.sheet-row');
+      for (var i = 0; i < rows.length; i++) {
+        var h = rows[i].getAttribute('href').split('/').pop();
+        if (h === f) rows[i].classList.add('current');
+      }
+    }
+  })();
+</script>
+
+</body>
+</html>

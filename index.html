@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Eduardo Ramos</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+  <style>
+    :root {
+      --bg: #0e0e0e;
+      --text: #f2f2f2;
+      --muted: #b5b5b5;
+      --accent: #3fa9f5;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    header {
+      padding: 2rem 1.5rem;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .nav {
+      max-width: 1100px;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
+
+    .menu a {
+      margin-left: 1.5rem;
+      font-size: 0.95rem;
+      color: var(--muted);
+    }
+
+    .menu a:hover {
+      color: var(--text);
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: auto;
+      padding: 4rem 1.5rem;
+    }
+
+    .hero {
+      max-width: 700px;
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    .hero p {
+      color: var(--muted);
+      font-size: 1.05rem;
+      margin-bottom: 2rem;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 0.65rem 1.5rem; /* vuelve a la respiración anterior */
+      border: 1px solid var(--accent);
+      border-radius: 30px;
+      font-size: 0.9rem;
+      line-height: 1.1;
+      transition: all 0.3s ease;
+    }
+
+    .btn {
+      color: var(--accent);
+    }
+
+    .btn:hover {
+      background: var(--accent);
+      color: #000;
+    }
+
+    .obras-wrapper.open > .btn {
+      background: var(--accent);
+      color: #000;
+    }
+
+    footer {
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding: 2rem 1.5rem;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    /* SUBMENÚ OBRAS */
+    .obras-submenu {
+      position: absolute;
+      top: 120%;
+      left: 50%;
+      transform: translateX(-50%) translateY(6px);
+      background: #121212;
+      padding: 1.4rem 1.6rem;
+      border-radius: 16px;
+      display: grid;
+      grid-template-columns: repeat(3, auto);
+      gap: 0.8rem 1.8rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease, transform 0.25s ease;
+      z-index: 20;
+      white-space: nowrap;
+    }
+
+    .obras-wrapper.open .obras-submenu {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .obras-submenu a {
+      font-size: 0.75rem;
+      color: var(--muted);
+      padding: 0.45rem 1.1rem;
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 999px;
+      text-align: center;
+      transition: all 0.25s ease;
+    }
+
+    .obras-submenu a:hover {
+      background: var(--accent);
+      color: #000;
+      border-color: var(--accent);
+    }
+
+    /* =================================================================
+       NUEVO DISENO MOVIL (hasta 600px) Y TABLET (601-1024px)
+       La version de ordenador (desde 1025px) queda exactamente igual.
+       ================================================================= */
+    .m-topbar,.m-featured,.m-count,.m-hero,.m-label,.m-contact,.lb-swipe{display:none;}
+    .tabbar-m{display:none;}
+    .obras-sheet{display:none;}
+
+    @media (max-width: 1024px){
+      body{padding-bottom:calc(72px + env(safe-area-inset-bottom));}
+      footer{display:none;}
+      .main-menu{display:none !important;}
+      .breadcrumb{display:none;}
+
+      /* Barra inferior fija */
+      .tabbar-m{display:flex;position:fixed;bottom:0;left:0;right:0;height:calc(64px + env(safe-area-inset-bottom));padding-bottom:env(safe-area-inset-bottom);background:rgba(18,18,18,0.96);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-top:1px solid rgba(255,255,255,0.08);z-index:900;align-items:center;justify-content:space-around;}
+      .tabbar-m a{display:flex;flex-direction:column;align-items:center;gap:5px;font-family:'Inter',sans-serif;font-size:11px;font-weight:500;color:var(--muted);text-decoration:none;}
+      .tabbar-m a .dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,0.25);}
+      .tabbar-m a.active{color:var(--accent);font-weight:600;}
+      .tabbar-m a.active .dot{background:var(--accent);}
+
+      /* Panel deslizante de Obras */
+      .obras-sheet{display:block;position:fixed;left:0;right:0;top:0;bottom:calc(64px + env(safe-area-inset-bottom));overflow:hidden;z-index:950;pointer-events:none;overscroll-behavior:contain;}
+      .obras-sheet.open{pointer-events:auto;}
+      .obras-sheet .sheet-overlay{position:absolute;inset:0;background:rgba(0,0,0,0.5);opacity:0;transition:opacity 0.25s ease;}
+      .obras-sheet.open .sheet-overlay{opacity:1;}
+      .obras-sheet .sheet-panel{position:absolute;left:0;right:0;bottom:0;background:#141414;border-radius:22px 22px 0 0;border-top:1px solid rgba(255,255,255,0.1);padding:12px 22px 10px;transform:translateY(105%);transition:transform 0.3s ease;touch-action:none;}
+      .obras-sheet.open .sheet-panel{transform:translateY(0);}
+      .sheet-handle{width:36px;height:4px;border-radius:3px;background:rgba(255,255,255,0.25);margin:0 auto 12px;}
+      .sheet-title{font-family:'Playfair Display',serif;font-size:17px;font-weight:600;color:var(--text);margin-bottom:8px;}
+      .sheet-row{display:flex;align-items:center;gap:14px;padding:9px 0;border-bottom:1px solid rgba(255,255,255,0.07);color:var(--text);font-family:'Inter',sans-serif;font-size:14px;font-weight:500;text-decoration:none;}
+      .sheet-row:last-child{border-bottom:none;}
+      .sheet-row img{width:38px;height:38px;border-radius:8px;object-fit:cover;flex:none;}
+      .sheet-row .chev{margin-left:auto;color:#666;font-family:serif;}
+      .sheet-row.current{color:var(--accent);}
+    }
+
+    @media (max-width: 600px){
+      footer{font-size:0.42rem;letter-spacing:0.16em;padding:3rem 0.8rem 2.5rem;white-space:nowrap;}
+      footer div{font-size:0.42rem !important;letter-spacing:0.16em !important;}
+    }
+
+    @media (max-width: 1024px){
+      .m-topbar{display:block;text-align:center;font-family:'Playfair Display',serif;font-weight:600;font-size:14px;letter-spacing:0.1em;color:var(--text);padding:18px 0 14px;border-bottom:1px solid rgba(255,255,255,0.08);}
+      .m-featured{display:block;width:130px;height:164px;border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,0.15);box-shadow:0 12px 30px rgba(0,0,0,0.45);margin-bottom:1.8rem;}
+      .m-featured img{width:100%;height:100%;object-fit:cover;display:block;}
+      .hero{min-height:calc(100vh - 72px) !important;min-height:calc(100dvh - 72px - env(safe-area-inset-bottom)) !important;padding-top:1.4rem;padding-bottom:1.4rem;}
+    }
+    @media (max-width: 600px){
+      .container{padding:2.6rem 1.2rem 3rem;}
+      .hero h1{font-size:2rem;}
+      .hero p{font-size:0.95rem;}
+    }
+    @media (min-width:601px) and (max-width:1024px){
+      .m-featured{width:170px;height:214px;}
+      .hero h1{font-size:2.8rem;}
+      .hero p{max-width:560px;}
+      footer div{font-size:0.5rem !important;letter-spacing:0.4em !important;}
+    }
+  </style>
+</head>
+<body>
+
+  
+
+  <main>
+    <section class="container hero" style="text-align:center; min-height:82vh; display:flex; flex-direction:column; justify-content:center; align-items:center;">
+      <div class="m-featured"><img src="images/abstractos/abstracto01.jpg" alt="Obra de Eduardo Ramos"></div>
+      <h1 style="margin-bottom:1.6rem; letter-spacing:0.12em;">Eduardo<span style="display:inline-block; width:0.15em;"></span>Ramos</h1>
+      <div style="width:60px; height:1px; background:rgba(255,255,255,0.25); margin-bottom:1.8rem;"></div>
+      <p style="max-width:680px;">
+        Pintura como exploración de la luz, el paisaje y la materia. Una obra que transita entre la figuración y la abstracción, con un fuerte acento en el impresionismo paisajista al óleo sobre tela, abordado desde una mirada profundamente humana y sensible.
+      </p>
+      <nav class="main-menu" style="margin-top:3.2rem; display:flex; justify-content:center; gap:2.8rem; flex-wrap:wrap; position:relative;">
+        <div class="obras-wrapper" id="obrasWrapper" style="position:relative;">
+          <span class="btn" id="obrasBtn" style="cursor:pointer;">Obras</span>
+          <div class="obras-submenu" id="obrasSubmenu">
+            <a href="obras/abstractos.html">Abstractos</a>
+            <a href="obras/arboles.html">Árboles</a>
+            <a href="obras/avilas.html">Ávilas</a>
+            <a href="obras/casas-y-calles.html">Casas y Calles</a>
+            <a href="obras/collage.html">Collage</a>
+            <a href="obras/gallos.html">Gallos</a>
+            <a href="obras/marinas.html">Marinas</a>
+            <a href="obras/palafitos.html">Palafitos</a>
+            <a href="obras/otros.html">Otros</a>
+          </div>
+        </div>
+        <a href="sobre.html" class="btn">Sobre el artista</a>
+        <a href="contacto.html" class="btn">Contacto</a>
+      </nav>
+    </section>
+  </main>
+
+  <footer style="border:none; padding:4rem 1.5rem 3rem; text-align:center;">
+    
+    <div style="font-family:'Inter', sans-serif; font-size:0.6rem; letter-spacing:0.8em; background: linear-gradient(90deg, #0b3c6f, #6fb7ff); -webkit-background-clip:text; -webkit-text-fill-color:transparent; white-space:nowrap;">
+      E&nbsp;d&nbsp;u&nbsp;a&nbsp;r&nbsp;d&nbsp;o&nbsp;&nbsp;R&nbsp;a&nbsp;m&nbsp;o&nbsp;s&nbsp;&nbsp;P&nbsp;i&nbsp;n&nbsp;t&nbsp;o&nbsp;r&nbsp;&nbsp;A&nbsp;r&nbsp;t&nbsp;í&nbsp;s&nbsp;t&nbsp;i&nbsp;c&nbsp;o
+    </div>
+  </footer>
+
+  <script>
+    const wrapper = document.getElementById('obrasWrapper');
+    let closeTimeout;
+    const canHover = window.matchMedia('(hover: hover)');
+
+    wrapper.addEventListener('mouseenter', () => {
+      if (!canHover.matches) return;
+      clearTimeout(closeTimeout);
+      wrapper.classList.add('open');
+    });
+
+    wrapper.addEventListener('mouseleave', () => {
+      if (!canHover.matches) return;
+      closeTimeout = setTimeout(() => {
+        wrapper.classList.remove('open');
+      }, 120);
+    });
+
+    const obrasToggle = wrapper.querySelector('.btn');
+    if (obrasToggle) obrasToggle.addEventListener('click', () => {
+      if (canHover.matches) return;
+      wrapper.classList.toggle('open');
+    });
+
+    document.addEventListener('click', (e) => {
+      if (canHover.matches) return;
+      if (!wrapper.classList.contains('open')) return;
+      if (!wrapper.contains(e.target)) wrapper.classList.remove('open');
+    });
+  </script>
+
+
+<!-- Barra de navegacion inferior (solo movil/tablet) -->
+<nav class="tabbar-m" aria-label="Navegacion">
+  <a href="index.html" class="active"><span class="dot"></span>Inicio</a>
+  <a href="#" id="tabObrasM"><span class="dot"></span>Obras</a>
+  <a href="sobre.html"><span class="dot"></span>Sobre</a>
+  <a href="contacto.html"><span class="dot"></span>Contacto</a>
+</nav>
+
+<!-- Panel deslizante de Obras (solo movil/tablet) -->
+<div class="obras-sheet" id="obrasSheetM">
+  <div class="sheet-overlay"></div>
+  <div class="sheet-panel">
+    <div class="sheet-handle"></div>
+    <div class="sheet-title">Obras</div>
+    <a class="sheet-row" href="obras/abstractos.html"><img src="images/abstractos/abstracto01.jpg" alt=""><span>Abstractos</span><span class="chev">›</span></a>
+    <a class="sheet-row" href="obras/arboles.html"><img src="images/arboles/arbol01.jpg" alt=""><span>Árboles</span><span class="chev">›</span></a>
+    <a class="sheet-row" href="obras/avilas.html"><img src="images/avilas/avila02.jpg" alt=""><span>Ávilas</span><span class="chev">›</span></a>
+    <a class="sheet-row" href="obras/casas-y-calles.html"><img src="images/casas-y-calles/casa-calle05.jpg" alt=""><span>Casas y Calles</span><span class="chev">›</span></a>
+    <a class="sheet-row" href="obras/collage.html"><img src="images/collage/collage01.jpg" alt=""><span>Collage</span><span class="chev">›</span></a>
+    <a class="sheet-row" href="obras/gallos.html"><img src="images/gallos/gallo01.jpg" alt=""><span>Gallos</span><span class="chev">›</span></a>
+    <a class="sheet-row" href="obras/marinas.html"><img src="images/marinas/marina02.jpg" alt=""><span>Marinas</span><span class="chev">›</span></a>
+    <a class="sheet-row" href="obras/palafitos.html"><img src="images/palafitos/palafito03.jpg" alt=""><span>Palafitos</span><span class="chev">›</span></a>
+    <a class="sheet-row" href="obras/otros.html"><img src="images/otros/otros01.jpg" alt=""><span>Otros</span><span class="chev">›</span></a>
+  </div>
+</div>
+
+<script>
+  /* Barra inferior + panel de Obras (solo movil/tablet; en ordenador estan ocultos) */
+  (function(){
+    var sheet = document.getElementById('obrasSheetM');
+    var btn = document.getElementById('tabObrasM');
+    if (!sheet || !btn) return;
+    var enObras = location.pathname.indexOf('obras') > -1;
+    var tabsM = document.querySelectorAll('.tabbar-m a');
+    var tabPaginaActual = document.querySelector('.tabbar-m a.active');
+    function syncTab(){
+      var abierto = sheet.classList.contains('open');
+      document.body.style.overflow = abierto ? 'hidden' : '';
+      for (var k = 0; k < tabsM.length; k++) tabsM[k].classList.remove('active');
+      if (abierto) { btn.classList.add('active'); }
+      else if (tabPaginaActual) { tabPaginaActual.classList.add('active'); }
+    }
+    btn.addEventListener('click', function(e){ e.preventDefault(); sheet.classList.toggle('open'); syncTab(); });
+    sheet.querySelector('.sheet-overlay').addEventListener('click', function(){ sheet.classList.remove('open'); syncTab(); });
+    var panelM = sheet.querySelector('.sheet-panel');
+    var startYM = null;
+    var dragYM = 0;
+    panelM.addEventListener('touchstart', function(e){ startYM = e.touches[0].clientY; dragYM = 0; }, {passive:true});
+    panelM.addEventListener('touchmove', function(e){
+      if (startYM === null) return;
+      dragYM = e.touches[0].clientY - startYM;
+      if (dragYM < 0) dragYM = 0;
+      panelM.style.transition = 'none';
+      panelM.style.transform = 'translateY(' + dragYM + 'px)';
+    }, {passive:true});
+    panelM.addEventListener('touchend', function(){
+      if (startYM === null) return;
+      startYM = null;
+      panelM.style.transition = '';
+      panelM.style.transform = '';
+      if (dragYM > 70) { sheet.classList.remove('open'); syncTab(); }
+      dragYM = 0;
+    }, {passive:true});
+    var f = location.pathname.split('/').pop();
+    if (location.pathname.indexOf('obras') > -1) {
+      var rows = document.querySelectorAll('.sheet-row');
+      for (var i = 0; i < rows.length; i++) {
+        var h = rows[i].getAttribute('href').split('/').pop();
+        if (h === f) rows[i].classList.add('current');
+      }
+    }
+  })();
+</script>
+
+</body>
+</html>

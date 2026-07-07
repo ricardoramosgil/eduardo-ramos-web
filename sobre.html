@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sobre el artista – Eduardo Ramos</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+  <style>
+    :root {
+      --bg: #0e0e0e;
+      --text: #f2f2f2;
+      --muted: #b5b5b5;
+      --accent: #3fa9f5;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.8;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: auto;
+      padding: 4rem 1.5rem;
+    }
+
+    /* TÍTULO */
+    .title {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem;
+      letter-spacing: 0.12em;
+      text-align: center;
+      margin-bottom: 1.6rem;
+    }
+
+    .divider {
+      width: 60px;
+      height: 1px;
+      background: rgba(255,255,255,0.25);
+      margin: 0 auto 1.8rem;
+    }
+
+    .intro {
+      max-width: 680px;
+      margin: 0 auto 3.2rem;
+      text-align: center;
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+
+    /* MENÚ */
+    .main-menu {
+      margin-bottom: 4rem;
+      display: flex;
+      justify-content: center;
+      gap: 2.8rem;
+      flex-wrap: wrap;
+      position: relative;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 0.65rem 1.5rem;
+      border: 1px solid var(--accent);
+      border-radius: 30px;
+      font-size: 0.9rem;
+      line-height: 1.1;
+      transition: all 0.3s ease;
+      color: var(--accent);
+    }
+
+    .btn:hover {
+      background: var(--accent);
+      color: #000;
+      cursor: pointer;
+    }
+
+    .btn.active {
+      background: var(--accent);
+      color: #000;
+      cursor: default;
+    }
+
+    /* CONTENIDO */
+    .content {
+      max-width: 900px;
+      margin: auto;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .section-block {
+      display: grid;
+      grid-template-columns: 1fr 180px;
+      gap: 3rem;
+      align-items: start;
+      margin-bottom: 4.5rem;
+    }
+
+    .section-block.reverse {
+      grid-template-columns: 180px 1fr;
+    }
+
+    .section-text p {
+      margin-bottom: 1.6rem;
+      text-align: justify;
+    }
+
+    .section-image {
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255,255,255,0.35);
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-align: center;
+    }
+
+    /* ÚNICA ADICIÓN: ajuste fino de encuadre + hover muy sutil */
+    .section-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;            /* mantiene recorte natural */
+      object-position: center center; /* centra el recorte */
+      transition: transform 0.38s ease, filter 0.38s ease;
+      transform: translateZ(0);    /* evita saltos en algunos navegadores */
+      display: block;
+      border-radius: 14px;
+    }
+
+    .section-image:hover img {
+      transform: scale(1.04);      /* zoom muy sutil al pasar el ratón */
+      filter: contrast(1.04);      /* un toque de contraste, discreto */
+    }
+
+    .signature {
+      margin-top: 2.5rem;
+      font-style: italic;
+      color: var(--text);
+    }
+
+    h3 {
+      margin: 0 0 1.2rem;
+      font-family: 'Playfair Display', serif;
+      font-weight: 400;
+      color: var(--text);
+    }
+
+    ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    li {
+      margin-bottom: 0.4rem;
+    }
+
+    @media (max-width: 800px) {
+      .section-block,
+      .section-block.reverse {
+        grid-template-columns: 1fr;
+      }
+
+      .section-image {
+        max-width: 220px;
+      }
+
+      /* en móviles quitamos hover para evitar efectos inesperados */
+      .section-image:hover img {
+        transform: none;
+        filter: none;
+      }
+    }
+
+    /* En computadora se ve la imagen "de escritorio"; la de "solo móvil" no se muestra */
+    .only-mobile-img { display: none; }
+
+    footer {
+      padding: 4rem 1.5rem 3rem;
+      text-align: center;
+      font-size: 0.6rem;
+      letter-spacing: 0.8em;
+      background: linear-gradient(90deg, #0b3c6f, #6fb7ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      white-space: nowrap;
+      margin-top: 6rem;
+    }
+
+    .breadcrumb {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+
+    .breadcrumb a {
+      color: var(--muted);
+      transition: color 0.25s ease;
+    }
+
+    .breadcrumb a:hover {
+      color: var(--accent);
+    }
+  
+    /* SUBMENÚ OBRAS */
+    .obras-wrapper.open > .btn {
+      background: var(--accent);
+      color: #000;
+    }
+
+    .obras-submenu {
+      position: absolute;
+      top: 120%;
+      left: 50%;
+      transform: translateX(-50%) translateY(6px);
+      background: #121212;
+      padding: 1.4rem 1.6rem;
+      border-radius: 16px;
+      display: grid;
+      grid-template-columns: repeat(3, auto);
+      gap: 0.8rem 1.8rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease, transform 0.25s ease;
+      z-index: 20;
+      white-space: nowrap;
+    }
+
+    .obras-wrapper.open .obras-submenu {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .obras-submenu a {
+      font-size: 0.75rem;
+      color: var(--muted);
+      padding: 0.45rem 1.1rem;
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 999px;
+      text-align: center;
+      transition: all 0.25s ease;
+    }
+
+    .obras-submenu a:hover {
+      background: var(--accent);
+      color: #000;
+      border-color: var(--accent);
+    }
+
+    /* =================================================================
+       NUEVO DISENO MOVIL (hasta 600px) Y TABLET (601-1024px)
+       La version de ordenador (desde 1025px) queda exactamente igual.
+       ================================================================= */
+    .m-topbar,.m-featured,.m-count,.m-hero,.m-label,.m-contact,.lb-swipe{display:none;}
+    .tabbar-m{display:none;}
+    .obras-sheet{display:none;}
+
+    @media (max-width: 1024px){
+      body{padding-bottom:calc(72px + env(safe-area-inset-bottom));}
+      footer{display:none;}
+      .main-menu{display:none !important;}
+      .breadcrumb{display:none;}
+
+      /* Barra inferior fija */
+      .tabbar-m{display:flex;position:fixed;bottom:0;left:0;right:0;height:calc(64px + env(safe-area-inset-bottom));padding-bottom:env(safe-area-inset-bottom);background:rgba(18,18,18,0.96);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-top:1px solid rgba(255,255,255,0.08);z-index:900;align-items:center;justify-content:space-around;}
+      .tabbar-m a{display:flex;flex-direction:column;align-items:center;gap:5px;font-family:'Inter',sans-serif;font-size:11px;font-weight:500;color:var(--muted);text-decoration:none;}
+      .tabbar-m a .dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,0.25);}
+      .tabbar-m a.active{color:var(--accent);font-weight:600;}
+      .tabbar-m a.active .dot{background:var(--accent);}
+
+      /* Panel deslizante de Obras */
+      .obras-sheet{display:block;position:fixed;left:0;right:0;top:0;bottom:calc(64px + env(safe-area-inset-bottom));overflow:hidden;z-index:950;pointer-events:none;overscroll-behavior:contain;}
+      .obras-sheet.open{pointer-events:auto;}
+      .obras-sheet .sheet-overlay{position:absolute;inset:0;background:rgba(0,0,0,0.5);opacity:0;transition:opacity 0.25s ease;}
+      .obras-sheet.open .sheet-overlay{opacity:1;}
+      .obras-sheet .sheet-panel{position:absolute;left:0;right:0;bottom:0;background:#141414;border-radius:22px 22px 0 0;border-top:1px solid rgba(255,255,255,0.1);padding:12px 22px 10px;transform:translateY(105%);transition:transform 0.3s ease;touch-action:none;}
+      .obras-sheet.open .sheet-panel{transform:translateY(0);}
+      .sheet-handle{width:36px;height:4px;border-radius:3px;background:rgba(255,255,255,0.25);margin:0 auto 12px;}
+      .sheet-title{font-family:'Playfair Display',serif;font-size:17px;font-weight:600;color:var(--text);margin-bottom:8px;}
+      .sheet-row{display:flex;align-items:center;gap:14px;padding:9px 0;border-bottom:1px solid rgba(255,255,255,0.07);color:var(--text);font-family:'Inter',sans-serif;font-size:14px;font-weight:500;text-decoration:none;}
+      .sheet-row:last-child{border-bottom:none;}
+      .sheet-row img{width:38px;height:38px;border-radius:8px;object-fit:cover;flex:none;}
+      .sheet-row .chev{margin-left:auto;color:#666;font-family:serif;}
+      .sheet-row.current{color:var(--accent);}
+    }
+
+    @media (max-width: 600px){
+      footer{font-size:0.42rem;letter-spacing:0.16em;padding:3rem 0.8rem 2.5rem;white-space:nowrap;}
+      footer div{font-size:0.42rem !important;letter-spacing:0.16em !important;}
+    }
+
+    @media (max-width: 1024px){
+      .m-hero{display:block;position:relative;height:44vh;min-height:260px;}
+      .m-hero img{width:100%;height:100%;object-fit:cover;display:block;}
+      .m-hero .shade{position:absolute;inset:0;background:linear-gradient(180deg, rgba(14,14,14,0.2) 0%, rgba(14,14,14,0.92) 100%);}
+      .m-hero .quote{position:absolute;left:1.4rem;right:1.4rem;bottom:1.1rem;font-family:'Playfair Display',serif;font-style:italic;font-size:1.15rem;line-height:1.45;color:var(--text);}
+      .m-label{display:block;font-family:'Inter',sans-serif;font-size:0.7rem;font-weight:600;letter-spacing:0.12em;color:#888;margin-bottom:1.2rem;}
+      .title,.divider,.intro{display:none;}
+      .section-block>div:not(.section-text){display:none !important;}
+      .section-block .section-image{display:none !important;}
+      .section-block,.section-block.reverse{display:block;margin-bottom:2.4rem;}
+      .content .section-block:not(:first-child){border-top:1px solid rgba(255,255,255,0.1);padding-top:1.8rem;}
+      footer{margin-top:2rem;}
+    }
+    @media (max-width: 600px){
+      .container{padding:1.6rem 1.2rem 2.5rem;}
+      .section-text p{text-align:left;}
+      .m-hero{height:40vh;}
+    }
+    @media (min-width:601px) and (max-width:1024px){
+      .container{padding:2.6rem 2rem 3rem;}
+      .content{max-width:640px;}
+      .section-text p{text-align:justify;}
+      .m-hero .quote{font-size:1.5rem;left:2.2rem;right:2.2rem;bottom:1.6rem;}
+      footer{font-size:0.5rem;letter-spacing:0.4em;}
+    }
+  </style>
+</head>
+<body>
+<!-- Cabecera editorial (solo movil/tablet) -->
+<div class="m-hero">
+  <img src="images/sobre/exposiciones-colectivas.jpg" alt="Obra de Eduardo Ramos">
+  <div class="shade"></div>
+  <div class="quote">"Capta la luz del trópico de una forma intensa y brillante."</div>
+</div>
+
+  <main class="container">
+
+    <div class="breadcrumb">
+      <a href="index.html">Volver al inicio</a>
+    </div>
+
+    <h1 class="title">Sobre<span style="display:inline-block; width:0.15em;"></span>el<span style="display:inline-block; width:0.15em;"></span>artista</h1>
+    <div class="divider"></div>
+
+    <p class="intro">
+      Un recorrido por la obra, la mirada y el lenguaje plástico de Eduardo Ramos, desde una lectura crítica y curatorial.
+    </p>
+
+    <nav class="main-menu">
+  <div class="obras-wrapper" id="obrasWrapper" style="position:relative;">
+    <span class="btn" id="obrasBtn" style="cursor:pointer;">Obras</span>
+    <div class="obras-submenu" id="obrasSubmenu">
+      <a href="obras/abstractos.html">Abstractos</a>
+      <a href="obras/arboles.html">Árboles</a>
+      <a href="obras/avilas.html">Ávilas</a>
+      <a href="obras/casas-y-calles.html">Casas y Calles</a>
+      <a href="obras/collage.html">Collage</a>
+      <a href="obras/gallos.html">Gallos</a>
+      <a href="obras/marinas.html">Marinas</a>
+      <a href="obras/palafitos.html">Palafitos</a>
+      <a href="obras/otros.html">Otros</a>
+    </div>
+  </div>
+  <span class="btn active">Sobre el artista</span>
+  <a href="contacto.html" class="btn">Contacto</a>
+</nav>
+
+    <section class="content">
+
+      <div class="m-label">SOBRE EL ARTISTA</div>
+
+      <!-- LA OBRA DE RAMOS -->
+      <div class="section-block">
+        <div class="section-text">
+          <h3>La Obra de Ramos</h3>
+
+          <p>
+            Ramos es un artista plástico latinoamericano que ha dedicado gran parte de su obra a recoger el rostro y el espíritu telúrico de lo venezolano. Sus lienzos, que en su mayor parte son paisajes de esta tierra, poseen ese hálito, ese élan cromático-poético dentro del cual Venezuela gira, vive y se proyecta como una ola adánica de deslumbramientos de luz, donde las rocas, los árboles y el cielo se visten a cada instante de luminosos y apasionantes esplendores.
+          </p>
+
+          <p>
+            De esta manera, ha logrado plasmar su esencia misma, pues capta la luz del trópico de una forma intensa y brillante. Además, al pintar con la técnica de la espátula, crea un trazo con relieve que rompe con el dibujo y la fotografía, generando una manifestación plástica que otorga un carácter profundamente artístico a sus obras.
+          </p>
+
+          <p>
+            A través de sus investigaciones, Ramos también se sumerge en el mundo etéreo de lo abstracto, retomando esta escuela y creando piezas con un contenido y un lenguaje humanista que imprimen a sus cuadros un carácter muy original.
+          </p>
+
+          <p>
+            La referencia anterior persigue únicamente destacar algunas de las cualidades y perfiles que identifican la obra de este artista plástico. Las presentaciones casi siempre resultan innecesarias cuando se trata de obras como la técnica y la temática con las que trabaja Ramos.
+          </p>
+
+          <p>
+            Frente al hecho artístico, frente al hecho plástico, la literatura apenas puede servir como una simple referencia, como un punto de apoyo. Es el público y la crítica especializada quienes deben observar, valorar y catalogar la obra de este pintor latinoamericano.
+          </p>
+
+          <div class="signature">
+            Rubén Astudillo<br>
+            Crítico de Arte
+          </div>
+        </div>
+
+        <div style="display:flex; flex-direction:column; gap:1.6rem;">
+          <div class="section-image">
+            <img src="images/sobre/obra-ramos-01.jpg" alt="Obra Ramos 01">
+          </div>
+          <div class="section-image only-desktop-img">
+            <img src="images/sobre/obra-ramos-02.jpg" alt="Obra Ramos 02">
+          </div>
+        </div>
+      </div>
+
+      <!-- EXPOSICIONES COLECTIVAS -->
+      <div class="section-block reverse">
+        <div class="section-image only-desktop-img">
+          <img src="images/sobre/exposiciones-colectivas.jpg" alt="Exposiciones colectivas">
+        </div>
+        <div class="section-image only-mobile-img">
+          <img src="images/sobre/obra-ramos-02.jpg" alt="Obra Ramos">
+        </div>
+
+        <div class="section-text">
+          <h3>Exposiciones Colectivas</h3>
+          <ul>
+            <li>El Nuevo Arte – Guayaquil</li>
+            <li>Galería Venezuela Mía – Caracas</li>
+            <li>Galería Salón U.I.E. – Praga</li>
+            <li>Gran Colectiva de Octubre – Caracas</li>
+            <li>C.A.N.T.V. – Caracas</li>
+            <li>A.V.A.P. – Caracas</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- EXPOSICIONES INDIVIDUALES -->
+      <div class="section-block">
+        <div class="section-text">
+          <h3>Exposiciones Individuales</h3>
+          <ul>
+            <li>Galería Siglo XX – New York</li>
+            <li>Galería The Star – New York</li>
+            <li>Centro Colombo Americano – Medellín</li>
+            <li>Galería de la CANTV – Caracas</li>
+            <li>Asociación Cultural Shell – Caracas / Maracaibo</li>
+            <li>Galería Dr. Hugo Finoll – Lagunillas</li>
+            <li>Galería del Concejo del D.F. – Caracas</li>
+            <li>Galería Altamira – Maracaibo</li>
+            <li>Galería Sans Souci – Caracas</li>
+            <li>Gobernación del Zulia – Maracaibo</li>
+            <li>Asociación Cultural Maraven – Caracas / Maracaibo</li>
+            <li>Concejo Municipal del Dto. Carirubana – Punto Fijo</li>
+            <li>Club Venezolano Alemán – Caracas</li>
+            <li>Embajada Americana – Caracas</li>
+            <li>Hotel Radisson Eurobuilding – Caracas</li>
+            <li>Ministerio de Educación – Caracas</li>
+            <li>Casa de la Cultura de Ciudad Ojeda – Ciudad Ojeda</li>
+            <li>Palacio Municipal de Caracas – Caracas</li>
+          </ul>
+        </div>
+
+        <div style="display:flex; flex-direction:column; gap:1.6rem;">
+          <div class="section-image">
+            <img src="images/sobre/exposiciones-individuales-01.jpg" alt="Exposición individual 01">
+          </div>
+          <div class="section-image only-desktop-img">
+            <img src="images/sobre/exposiciones-individuales-02.jpg" alt="Exposición individual 02">
+          </div>
+        </div>
+      </div>
+
+      <!-- COLECCIONES -->
+      <div class="section-block reverse">
+        <div class="section-image">
+          <img src="images/sobre/colecciones.jpg" alt="Colecciones">
+        </div>
+        <div class="section-text">
+          <h3>Obras en colecciones públicas y privadas</h3>
+          <ul>
+            <li>Comandancia General de la Marina – <em>Pescadores de Margarita</em></li>
+            <li>Concejo Municipal del D.F. – <em>Lavanderas</em></li>
+            <li>Gobernación del Zulia – <em>Palafitos de Sinamaica</em></li>
+            <li>Asociación Cultural Maraven – <em>Calle de La Guaira</em></li>
+            <li>Ministerio de la Defensa – <em>Ávila</em>, <em>Calle de La Guaira</em></li>
+            <li>Concejo Municipal del Dto. Carirubana – <em>Araguaney</em></li>
+            <li>Ministerio de la Cultura (Cinemateca Nacional) – <em>Bolívar Fuerte</em></li>
+            <li>Colecciones privadas – Venezuela, Canadá, Colombia, Estados Unidos, Ecuador, Suiza, México, Alemania, Holanda, Inglaterra, Italia, Japón</li>
+            <li>Bancos internacionales – Deutsche Bank, Bank of Tokyo, Dresdner Bank, Swiss Bank Corporation, Unión de Bancos Suizos, Deutsche Südamerikanische Bank, Citibank</li>
+            <li>Empresas privadas – Bayer, Mitsubishi, Mabe, Hoechst, Organon, Pharmathon, Aventis, Schering, Teikoku Oil, Marubeni</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- RECONOCIMIENTOS -->
+      <div class="section-block">
+        <div class="section-text">
+          <h3>Reconocimientos y menciones culturales</h3>
+          <ul>
+            <li>Mención Especial en Salón Nacional de Arte Contemporáneo</li>
+            <li>Reconocimiento Institucional por Aporte a la Cultura Visual Venezolana</li>
+            <li>Participación destacada en Bienales Regionales</li>
+            <li>Obra reseñada en publicaciones especializadas de arte latinoamericano</li>
+          </ul>
+        </div>
+        <div class="section-image">
+          <img src="images/sobre/reconocimientos.jpg" alt="Reconocimientos">
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <footer>
+    E&nbsp;d&nbsp;u&nbsp;a&nbsp;r&nbsp;d&nbsp;o&nbsp;&nbsp;R&nbsp;a&nbsp;m&nbsp;o&nbsp;s&nbsp;&nbsp;P&nbsp;i&nbsp;n&nbsp;t&nbsp;o&nbsp;r&nbsp;&nbsp;A&nbsp;r&nbsp;t&nbsp;í&nbsp;s&nbsp;t&nbsp;i&nbsp;c&nbsp;o
+  </footer>
+
+  <script>
+    const wrapper = document.getElementById('obrasWrapper');
+    let closeTimeout;
+    const canHover = window.matchMedia('(hover: hover)');
+
+    wrapper.addEventListener('mouseenter', () => {
+      if (!canHover.matches) return;
+      clearTimeout(closeTimeout);
+      wrapper.classList.add('open');
+    });
+
+    wrapper.addEventListener('mouseleave', () => {
+      if (!canHover.matches) return;
+      closeTimeout = setTimeout(() => {
+        wrapper.classList.remove('open');
+      }, 120);
+    });
+
+    const obrasToggle = wrapper.querySelector('.btn');
+    if (obrasToggle) obrasToggle.addEventListener('click', () => {
+      if (canHover.matches) return;
+      wrapper.classList.toggle('open');
+    });
+
+    document.addEventListener('click', (e) => {
+      if (canHover.matches) return;
+      if (!wrapper.classList.contains('open')) return;
+      if (!wrapper.contains(e.target)) wrapper.classList.remove('open');
+    });
+  </script>
+
+
+<!-- Barra de navegacion inferior (solo movil/tablet) -->
+<nav class="tabbar-m" aria-label="Navegacion">
+  <a href="index.html"><span class="dot"></span>Inicio</a>
+  <a href="#" id="tabObrasM"><span class="dot"></span>Obras</a>
+  <a href="sobre.html" class="active"><span class="dot"></span>Sobre</a>
+  <a href="contacto.html"><span class="dot"></span>Contacto</a>
+</nav>
+
+<!-- Panel deslizante de Obras (solo movil/tablet) -->
+<div class="obras-sheet" id="obrasSheetM">
+  <div class="sheet-overlay"></div>
+  <div class="sheet-panel">
+    <div class="sheet-handle"></div>
+    <div class="sheet-title">Obras</div>
+    <a class="sheet-row" href="obras/abstractos.html"><img src="images/abstractos/abstracto01.jpg" alt=""><span>Abstractos</span><span class="chev">›</span></a>
+    <a class="sheet-row" href="obras/arboles.html"><img src="images/arboles/arbol01.jpg" alt=""><span>Árboles</span><span class="chev">›</span></a>
+    <a class="sheet-row" href="obras/avilas.html"><img src="images/avilas/avila02.jpg" alt=""><span>Ávilas</span><span class="chev">›</span></a>
+    <a class="sheet-row" href="obras/casas-y-calles.html"><img src="images/casas-y-calles/casa-calle05.jpg" alt=""><span>Casas y Calles</span><span class="chev">›</span></a>
+    <a class="sheet-row" href="obras/collage.html"><img src="images/collage/collage01.jpg" alt=""><span>Collage</span><span class="chev">›</span></a>
+    <a class="sheet-row" href="obras/gallos.html"><img src="images/gallos/gallo01.jpg" alt=""><span>Gallos</span><span class="chev">›</span></a>
+    <a class="sheet-row" href="obras/marinas.html"><img src="images/marinas/marina02.jpg" alt=""><span>Marinas</span><span class="chev">›</span></a>
+    <a class="sheet-row" href="obras/palafitos.html"><img src="images/palafitos/palafito03.jpg" alt=""><span>Palafitos</span><span class="chev">›</span></a>
+    <a class="sheet-row" href="obras/otros.html"><img src="images/otros/otros01.jpg" alt=""><span>Otros</span><span class="chev">›</span></a>
+  </div>
+</div>
+
+<script>
+  /* Barra inferior + panel de Obras (solo movil/tablet; en ordenador estan ocultos) */
+  (function(){
+    var sheet = document.getElementById('obrasSheetM');
+    var btn = document.getElementById('tabObrasM');
+    if (!sheet || !btn) return;
+    var enObras = location.pathname.indexOf('obras') > -1;
+    var tabsM = document.querySelectorAll('.tabbar-m a');
+    var tabPaginaActual = document.querySelector('.tabbar-m a.active');
+    function syncTab(){
+      var abierto = sheet.classList.contains('open');
+      document.body.style.overflow = abierto ? 'hidden' : '';
+      for (var k = 0; k < tabsM.length; k++) tabsM[k].classList.remove('active');
+      if (abierto) { btn.classList.add('active'); }
+      else if (tabPaginaActual) { tabPaginaActual.classList.add('active'); }
+    }
+    btn.addEventListener('click', function(e){ e.preventDefault(); sheet.classList.toggle('open'); syncTab(); });
+    sheet.querySelector('.sheet-overlay').addEventListener('click', function(){ sheet.classList.remove('open'); syncTab(); });
+    var panelM = sheet.querySelector('.sheet-panel');
+    var startYM = null;
+    var dragYM = 0;
+    panelM.addEventListener('touchstart', function(e){ startYM = e.touches[0].clientY; dragYM = 0; }, {passive:true});
+    panelM.addEventListener('touchmove', function(e){
+      if (startYM === null) return;
+      dragYM = e.touches[0].clientY - startYM;
+      if (dragYM < 0) dragYM = 0;
+      panelM.style.transition = 'none';
+      panelM.style.transform = 'translateY(' + dragYM + 'px)';
+    }, {passive:true});
+    panelM.addEventListener('touchend', function(){
+      if (startYM === null) return;
+      startYM = null;
+      panelM.style.transition = '';
+      panelM.style.transform = '';
+      if (dragYM > 70) { sheet.classList.remove('open'); syncTab(); }
+      dragYM = 0;
+    }, {passive:true});
+    var f = location.pathname.split('/').pop();
+    if (location.pathname.indexOf('obras') > -1) {
+      var rows = document.querySelectorAll('.sheet-row');
+      for (var i = 0; i < rows.length; i++) {
+        var h = rows[i].getAttribute('href').split('/').pop();
+        if (h === f) rows[i].classList.add('current');
+      }
+    }
+  })();
+</script>
+
+</body>
+</html>
