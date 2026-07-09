@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Página no encontrada – Eduardo Ramos</title>
+  <meta name="robots" content="noindex">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="https://eduardoramos.art/favicon-32.png">
+  <link rel="apple-touch-icon" href="https://eduardoramos.art/apple-touch-icon.png">
+
+  <style>
+    /* Fuentes autoalojadas (sin conexion a Google, mas privacidad) */
+    @font-face { font-family: 'Playfair Display'; font-style: normal; font-weight: 400; font-display: swap; src: url('https://eduardoramos.art/fonts/playfair-display-400.woff2') format('woff2'); }
+    @font-face { font-family: 'Playfair Display'; font-style: normal; font-weight: 600; font-display: swap; src: url('https://eduardoramos.art/fonts/playfair-display-600.woff2') format('woff2'); }
+    @font-face { font-family: 'Inter'; font-style: normal; font-weight: 300; font-display: swap; src: url('https://eduardoramos.art/fonts/inter-300.woff2') format('woff2'); }
+    @font-face { font-family: 'Inter'; font-style: normal; font-weight: 400; font-display: swap; src: url('https://eduardoramos.art/fonts/inter-400.woff2') format('woff2'); }
+    @font-face { font-family: 'Inter'; font-style: normal; font-weight: 500; font-display: swap; src: url('https://eduardoramos.art/fonts/inter-500.woff2') format('woff2'); }
+
+    :root {
+      --bg: #0e0e0e;
+      --text: #f2f2f2;
+      --muted: #b5b5b5;
+      --accent: #3fa9f5;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.8;
+      min-height: 100vh;
+      min-height: 100dvh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem 1.5rem;
+    }
+    .caja { max-width: 560px; }
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(4rem, 16vw, 7rem);
+      letter-spacing: 0.08em;
+      line-height: 1.1;
+      margin-bottom: 0.6rem;
+    }
+    .divider {
+      width: 60px;
+      height: 1px;
+      background: rgba(255,255,255,0.25);
+      margin: 0 auto 1.6rem;
+    }
+    p {
+      color: var(--muted);
+      font-size: 1rem;
+      margin-bottom: 2.2rem;
+    }
+    .btn {
+      display: inline-block;
+      padding: 0.7rem 1.8rem;
+      border: 1px solid var(--accent);
+      border-radius: 30px;
+      font-size: 0.9rem;
+      color: var(--accent);
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+    .btn:hover { background: var(--accent); color: #000; }
+  </style>
+</head>
+<body>
+  <div class="caja">
+    <h1>404</h1>
+    <div class="divider"></div>
+    <p>Esta página no existe o fue movida.<br>La obra que buscas seguramente sigue aquí, solo que en otra sala.</p>
+    <a class="btn" href="https://eduardoramos.art/">Volver al inicio</a>
+  </div>
+</body>
+</html>

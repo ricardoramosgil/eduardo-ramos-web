@@ -4,17 +4,29 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Casas y Calles – Eduardo Ramos</title>
-
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <meta name="description" content="Rincones y fachadas de pueblos latinoamericanos pintados al óleo por Eduardo Ramos.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Eduardo Ramos">
+  <meta property="og:title" content="Casas y Calles - Eduardo Ramos">
+  <meta property="og:description" content="Rincones y fachadas de pueblos latinoamericanos pintados al óleo por Eduardo Ramos.">
+  <meta property="og:image" content="https://eduardoramos.art/images/social/og-casas-y-calles.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:url" content="https://eduardoramos.art/obras/casas-y-calles.html">
+  <meta name="twitter:card" content="summary_large_image">
 
   <!-- Favicon -->
   <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32.png">
   <link rel="apple-touch-icon" href="../apple-touch-icon.png">
 
   <style>
+    /* Fuentes autoalojadas (sin conexion a Google, mas privacidad) */
+    @font-face { font-family: 'Playfair Display'; font-style: normal; font-weight: 400; font-display: swap; src: url('../fonts/playfair-display-400.woff2') format('woff2'); }
+    @font-face { font-family: 'Playfair Display'; font-style: normal; font-weight: 600; font-display: swap; src: url('../fonts/playfair-display-600.woff2') format('woff2'); }
+    @font-face { font-family: 'Inter'; font-style: normal; font-weight: 300; font-display: swap; src: url('../fonts/inter-300.woff2') format('woff2'); }
+    @font-face { font-family: 'Inter'; font-style: normal; font-weight: 400; font-display: swap; src: url('../fonts/inter-400.woff2') format('woff2'); }
+    @font-face { font-family: 'Inter'; font-style: normal; font-weight: 500; font-display: swap; src: url('../fonts/inter-500.woff2') format('woff2'); }
+
     :root {
       --bg: #0e0e0e;
       --text: #f2f2f2;
@@ -142,6 +154,8 @@
     }
 
     .art-technique { font-size: 0.75rem; }
+
+    .art-item:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; border-radius: 14px; }
 
     /* LIGHTBOX */
     .lightbox {
@@ -461,11 +475,12 @@
         const tech = techs[idx];
         const extra = extras[i] || '';
         const src = `../images/casas-y-calles/${prefix}${num}.jpg`;
+        const thumb = `../images/casas-y-calles/thumb/${prefix}${num}.jpg`;
 
         gallery.insertAdjacentHTML('beforeend', `
-          <div class="art-item" data-img="${src}" data-title="${title}" data-tech="${tech}" data-extra="${extra}">
+          <div class="art-item" tabindex="0" role="button" data-img="${src}" data-title="${title}" data-tech="${tech}" data-extra="${extra}">
             <div class="art-thumb">
-              <img src="${src}" alt="${title}">
+              <img src="${thumb}" alt="${title}" loading="lazy" decoding="async">
             </div>
             <div class="art-title">${title}</div>
             <div class="art-technique">${tech}${extra ? `<br>${extra}` : ''}</div>
@@ -506,6 +521,8 @@
     const obrasToggle = wrapper.querySelector('.btn');
     if (obrasToggle) obrasToggle.addEventListener('click',()=>{ if(canHover.matches) return; wrapper.classList.toggle('open'); });
     document.addEventListener('click',(e)=>{ if(canHover.matches) return; if(!wrapper.classList.contains('open')) return; if(!wrapper.contains(e.target)) wrapper.classList.remove('open'); });
+    wrapper.addEventListener('focusin',()=>{ if(!canHover.matches) return; wrapper.classList.add('open'); });
+    wrapper.addEventListener('focusout',(e)=>{ if(!wrapper.contains(e.relatedTarget)) wrapper.classList.remove('open'); });
   }
 
   (function(){
@@ -635,7 +652,15 @@
       }
     }, {passive:true});
 
-    window.addEventListener('resize', updateNavVisibility);
+    document.addEventListener('keydown', (e) => {
+      if (e.key !== 'Enter' && e.key !== ' ') return;
+      var it = e.target && e.target.closest ? e.target.closest('.art-item') : null;
+      if (!it) return;
+      e.preventDefault();
+      it.click();
+    });
+
+window.addEventListener('resize', updateNavVisibility);
   })();
 </script>
 
@@ -654,14 +679,14 @@
   <div class="sheet-panel">
     <div class="sheet-handle"></div>
     <div class="sheet-title">Obras</div>
-    <a class="sheet-row" href="abstractos.html"><img src="../images/abstractos/abstracto01.jpg" alt=""><span>Abstractos</span><span class="chev">›</span></a>
-    <a class="sheet-row" href="arboles.html"><img src="../images/arboles/arbol01.jpg" alt=""><span>Árboles</span><span class="chev">›</span></a>
-    <a class="sheet-row" href="avilas.html"><img src="../images/avilas/avila02.jpg" alt=""><span>Ávilas</span><span class="chev">›</span></a>
-    <a class="sheet-row" href="casas-y-calles.html"><img src="../images/casas-y-calles/casa-calle05.jpg" alt=""><span>Casas y Calles</span><span class="chev">›</span></a>
-    <a class="sheet-row" href="collage.html"><img src="../images/collage/collage01.jpg" alt=""><span>Collage</span><span class="chev">›</span></a>
-    <a class="sheet-row" href="gallos.html"><img src="../images/gallos/gallo01.jpg" alt=""><span>Gallos</span><span class="chev">›</span></a>
-    <a class="sheet-row" href="marinas.html"><img src="../images/marinas/marina02.jpg" alt=""><span>Marinas</span><span class="chev">›</span></a>
-    <a class="sheet-row" href="palafitos.html"><img src="../images/palafitos/palafito03.jpg" alt=""><span>Palafitos</span><span class="chev">›</span></a>
+    <a class="sheet-row" href="abstractos.html"><img src="../images/abstractos/thumb/sheet.jpg" alt=""><span>Abstractos</span><span class="chev">›</span></a>
+    <a class="sheet-row" href="arboles.html"><img src="../images/arboles/thumb/sheet.jpg" alt=""><span>Árboles</span><span class="chev">›</span></a>
+    <a class="sheet-row" href="avilas.html"><img src="../images/avilas/thumb/sheet.jpg" alt=""><span>Ávilas</span><span class="chev">›</span></a>
+    <a class="sheet-row" href="casas-y-calles.html"><img src="../images/casas-y-calles/thumb/sheet.jpg" alt=""><span>Casas y Calles</span><span class="chev">›</span></a>
+    <a class="sheet-row" href="collage.html"><img src="../images/collage/thumb/sheet.jpg" alt=""><span>Collage</span><span class="chev">›</span></a>
+    <a class="sheet-row" href="gallos.html"><img src="../images/gallos/thumb/sheet.jpg" alt=""><span>Gallos</span><span class="chev">›</span></a>
+    <a class="sheet-row" href="marinas.html"><img src="../images/marinas/thumb/sheet.jpg" alt=""><span>Marinas</span><span class="chev">›</span></a>
+    <a class="sheet-row" href="palafitos.html"><img src="../images/palafitos/thumb/sheet.jpg" alt=""><span>Palafitos</span><span class="chev">›</span></a>
     <a class="sheet-row" href="otros.html"><img src="../images/otros/otros01.jpg" alt=""><span>Otros</span><span class="chev">›</span></a>
   </div>
 </div>
@@ -672,7 +697,6 @@
     var sheet = document.getElementById('obrasSheetM');
     var btn = document.getElementById('tabObrasM');
     if (!sheet || !btn) return;
-    var enObras = location.pathname.indexOf('obras') > -1;
     var tabsM = document.querySelectorAll('.tabbar-m a');
     var tabPaginaActual = document.querySelector('.tabbar-m a.active');
     function syncTab(){
@@ -682,8 +706,56 @@
       if (abierto) { btn.classList.add('active'); }
       else if (tabPaginaActual) { tabPaginaActual.classList.add('active'); }
     }
-    btn.addEventListener('click', function(e){ e.preventDefault(); sheet.classList.toggle('open'); syncTab(); });
-    sheet.querySelector('.sheet-overlay').addEventListener('click', function(){ sheet.classList.remove('open'); syncTab(); });
+
+    /* Historial: abrir el panel anota un paso para que el boton "atras" solo lo cierre */
+    var sheetPushed = false;
+    var sheetIgnorePop = false;
+    var pendingNavM = null;
+
+    function openSheet(){
+      if (sheet.classList.contains('open')) return;
+      sheet.classList.add('open');
+      try { history.pushState({ sheetOpen: true }, ''); sheetPushed = true; } catch(err) { sheetPushed = false; }
+      syncTab();
+    }
+    function closeSheet(){
+      if (!sheet.classList.contains('open')) return;
+      sheet.classList.remove('open');
+      syncTab();
+      if (sheetPushed) { sheetPushed = false; sheetIgnorePop = true; try { history.back(); } catch(err) {} }
+    }
+    function toggleSheet(){
+      if (sheet.classList.contains('open')) closeSheet(); else openSheet();
+    }
+
+    window.addEventListener('popstate', function(){
+      if (sheetIgnorePop) {
+        sheetIgnorePop = false;
+        if (pendingNavM) { var d = pendingNavM; pendingNavM = null; location.href = d; }
+        return;
+      }
+      if (sheet.classList.contains('open')) {
+        sheetPushed = false;
+        sheet.classList.remove('open');
+        syncTab();
+      }
+    });
+
+    /* Tap por eventos tactiles directos: evita que el navegador descarte el click
+       sintetizado justo despues de un gesto de arrastre (el "cooldown") */
+    btn.addEventListener('click', function(e){ e.preventDefault(); toggleSheet(); });
+    var btnTX = null, btnTY = null;
+    btn.addEventListener('touchstart', function(e){ btnTX = e.touches[0].clientX; btnTY = e.touches[0].clientY; }, {passive:true});
+    btn.addEventListener('touchend', function(e){
+      if (btnTX === null) return;
+      var t = e.changedTouches[0];
+      var mov = Math.abs(t.clientX - btnTX) + Math.abs(t.clientY - btnTY);
+      btnTX = null; btnTY = null;
+      if (mov < 12) { e.preventDefault(); toggleSheet(); }
+    }, {passive:false});
+
+    sheet.querySelector('.sheet-overlay').addEventListener('click', function(){ closeSheet(); });
+
     var panelM = sheet.querySelector('.sheet-panel');
     var startYM = null;
     var dragYM = 0;
@@ -700,9 +772,22 @@
       startYM = null;
       panelM.style.transition = '';
       panelM.style.transform = '';
-      if (dragYM > 70) { sheet.classList.remove('open'); syncTab(); }
+      if (dragYM > 70) closeSheet();
       dragYM = 0;
     }, {passive:true});
+
+    /* Navegar desde una fila: consumir primero el paso del historial (sin entradas dobles) */
+    var rowsNav = sheet.querySelectorAll('.sheet-row');
+    for (var r = 0; r < rowsNav.length; r++) {
+      rowsNav[r].addEventListener('click', function(e){
+        if (sheetPushed) {
+          e.preventDefault();
+          pendingNavM = this.href;
+          closeSheet();
+        }
+      });
+    }
+
     var f = location.pathname.split('/').pop();
     if (location.pathname.indexOf('obras') > -1) {
       var rows = document.querySelectorAll('.sheet-row');
