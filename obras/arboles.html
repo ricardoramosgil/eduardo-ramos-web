@@ -517,6 +517,22 @@
       updateNavVisibility();
     }
 
+    /* Precarga silenciosa de las obras vecinas: arranca cuando la imagen actual
+       termina de cargar, para no restarle ancho de banda a lo que se esta viendo. */
+    const lbPreloaded = {};
+    function preloadNeighbors() {
+      [currentIndex - 1, currentIndex + 1].forEach(function (n) {
+        if (n < 0 || n >= items.length) return;
+        const src = items[n].dataset.img;
+        if (!src || lbPreloaded[src]) return;
+        lbPreloaded[src] = true;
+        const im = new Image();
+        im.src = src;
+      });
+    }
+    lbImg.addEventListener('load', preloadNeighbors);
+
+
     function closeLightboxVisual() {
       lightbox.classList.remove('open');
       document.body.style.overflow = ''; document.body.style.paddingRight = '';
